@@ -1,10 +1,9 @@
 <script>
-	export let showBorder = true;
 	export let sticky = true;
 	export let headerClass;
 </script>
 
-<div class:header-sticky={sticky} class:border={showBorder} class={`header ${headerClass}`}>
+<div class:header-sticky={sticky} class={`header ${headerClass}`}>
 	<div class="header-item">
 		<slot class="header-item left" name="left" />
 	</div>
@@ -33,9 +32,5 @@
 
 	.header-sticky {
 		@apply sticky;
-	}
-
-	.border {
-		@apply border-solid border-0 border-b-2 border-matte-light;
 	}
 </style>

@@ -45,30 +45,33 @@ const createNavigateStore = () => {
 			const basePath = getScreenPath(navigationPath, true);
 
 			if (basePath) {
-				const parentNavigator = lodash.get(prevState.navigation, basePath.base);
-				const navHistory = parentNavigator.navigation.history;
-				const navScreens = parentNavigator.navigation.screens;
+				const parentNavigator = basePath.base
+					? lodash.get(prevState.navigation, basePath.base).navigation
+					: prevState.navigation;
+
+				console.log(prevState.navigati);
+				const navHistory = parentNavigator.history;
+				const navScreens = parentNavigator.screens;
 				const lastHistoryScreen = navHistory[navHistory.length - 1];
 
-				parentNavigator.navigation.screens[lastHistoryScreen].opened = false;
-				parentNavigator.navigation.screens[lastHistoryScreen].animate = true;
+				parentNavigator.screens[lastHistoryScreen].opened = false;
+				parentNavigator.screens[lastHistoryScreen].animate = true;
 
 				let backFullPath;
 
 				if (navHistory && navHistory.length > 1) {
 					const beforeLastHistoryScreen = navHistory[navHistory.length - 2];
 
-					backFullPath = parentNavigator.navigation.screens[beforeLastHistoryScreen].fullPath;
-					parentNavigator.navigation.screens[beforeLastHistoryScreen].opened = true;
-					parentNavigator.navigation.screens[beforeLastHistoryScreen].animate = false;
+					backFullPath = parentNavigator.screens[beforeLastHistoryScreen].fullPath;
+					parentNavigator.screens[beforeLastHistoryScreen].opened = true;
+					parentNavigator.screens[beforeLastHistoryScreen].animate = false;
 				} else {
 					const backScreen = navScreens.find(
-						(screen) =>
-							screen.path === parentNavigator.navigation.screens[lastHistoryScreen].backDefault
+						(screen) => screen.path === parentNavigator.screens[lastHistoryScreen].backDefault
 					);
 
-					parentNavigator.navigation.history = [backScreen.index, lastHistoryScreen];
-					backFullPath = parentNavigator.navigation.screens[lastHistoryScreen].backDefault;
+					parentNavigator.history = [backScreen.index, lastHistoryScreen];
+					backFullPath = parentNavigator.screens[lastHistoryScreen].backDefault;
 				}
 
 				const urlObject = new URL(`${window.location.origin}${backFullPath}`);
