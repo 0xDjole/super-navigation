@@ -7,6 +7,7 @@
 	import Screen from '../Screen/index.svelte';
 	export let screens;
 	export let navigationPath = [];
+	export let background = 'black';
 
 	let navigationScreens = [];
 	export let defaultIndex;
@@ -58,18 +59,20 @@
 	{#if navigationScreens && navigationScreens.length}
 		{#each navigationScreens as screen, index (screen.key)}
 			<Drawer animate={screen.animate} zIndex={index * 10} open={screen.opened}>
-				<Screen
-					headerClass={screen.headerClass}
-					showBack={screen.showBack}
-					navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
-					title={screen.title}
-					showHeader={screen.showHeader === false ? false : true}
-				>
-					<svelte:component
-						this={screen.component}
+				<div class={`stack-item ${background}`}>
+					<Screen
+						headerClass={screen.headerClass}
+						showBack={screen.showBack}
 						navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
-					/>
-				</Screen>
+						title={screen.title}
+						showHeader={screen.showHeader === false ? false : true}
+					>
+						<svelte:component
+							this={screen.component}
+							navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
+						/>
+					</Screen>
+				</div>
 			</Drawer>
 		{/each}
 	{/if}
@@ -78,5 +81,10 @@
 <style type="text/postcss">
 	.stack-wrapper {
 		@apply relative w-screen min-h-screen h-full;
+	}
+
+	.stack-item {
+		@apply grid z-10 top-0 w-full transition-transform min-h-screen;
+		grid-template-rows: min-content 1fr;
 	}
 </style>

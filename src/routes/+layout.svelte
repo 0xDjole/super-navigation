@@ -10,6 +10,7 @@
 {/if}
 
 <Stack
+	background="bg-matte"
 	defaultIndex={0}
 	screens={[
 		{
