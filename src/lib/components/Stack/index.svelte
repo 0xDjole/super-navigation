@@ -34,6 +34,7 @@
 					activeScreens.push({
 						...screensNav[historyIndex],
 						showHeader: screens[historyIndex].showHeader,
+						headerColor: screens[historyIndex].headerColor,
 						showBack: historyIndex > 0,
 						key: `${historyIndex}.${numOfSame}`
 					});
@@ -59,6 +60,7 @@
 			<Drawer animate={screen.animate} zIndex={index * 10} open={screen.opened}>
 				<div class="stack-item">
 					<Screen
+						headerColor={screen.headerColor}
 						showBack={screen.showBack}
 						navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
 						title={screen.title}

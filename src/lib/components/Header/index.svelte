@@ -1,9 +1,15 @@
 <script>
 	export let showBorder = true;
 	export let sticky = true;
+	export let headerColor;
 </script>
 
-<div class:header-sticky={sticky} class:border={showBorder} class="header">
+<div
+	class:header-sticky={sticky}
+	class:border={showBorder}
+	class="header"
+	style={`background-color: ${headerColor}`}
+>
 	<div class="header-item">
 		<slot class="header-item left" name="left" />
 	</div>
@@ -21,7 +27,7 @@
 	}
 
 	.header {
-		@apply top-0 bg-matte text-white text-2xl font-bold grid grid-flow-col gap-x-2 justify-start items-center w-full;
+		@apply top-0 text-white text-2xl font-bold grid grid-flow-col gap-x-2 justify-start items-center w-full;
 		grid-template-columns: 1fr 5fr 1fr;
 		height: 60px;
 		@screen md {

@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { navigation } from '../../store';
 
-	import SvgIcon from '../SvgIcon.svelte';
 	import Header from '../Header/index.svelte';
-	import Less from '../../icons/less.svg?raw';
 
 	export let title;
 	export let showBack;
 	export let navigationPath;
 	export let showHeader = true;
+	export let headerColor;
 
 	$: hasTab =
 		navigationPath && navigationPath.length
@@ -17,7 +16,7 @@
 </script>
 
 {#if showHeader}
-	<Header>
+	<Header {headerColor}>
 		<div slot="left">
 			{#if showBack}
 				<div
@@ -26,7 +25,7 @@
 						navigation.back();
 					}}
 				>
-					<SvgIcon data={Less} color={'white'} size={'35px'} />
+					Back
 				</div>
 			{/if}
 		</div>
