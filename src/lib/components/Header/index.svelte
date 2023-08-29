@@ -1,0 +1,40 @@
+<script>
+	export let showBorder = true;
+	export let sticky = true;
+</script>
+
+<div class:header-sticky={sticky} class:border={showBorder} class="header">
+	<div class="header-item">
+		<slot class="header-item left" name="left" />
+	</div>
+	<div class="header-item">
+		<slot class="header-item middle" name="middle" />
+	</div>
+	<div class="header-item">
+		<slot class="header-item right" name="right" />
+	</div>
+</div>
+
+<style type="text/postcss">
+	.header-item {
+		@apply grid justify-center;
+	}
+
+	.header {
+		@apply top-0 bg-matte text-white text-2xl font-bold grid grid-flow-col gap-x-2 justify-start items-center w-full;
+		grid-template-columns: 1fr 5fr 1fr;
+		height: 60px;
+		@screen md {
+			height: 80px;
+			@apply text-5xl;
+		}
+	}
+
+	.header-sticky {
+		@apply sticky;
+	}
+
+	.border {
+		@apply border-solid border-0 border-b-2 border-matte-light;
+	}
+</style>
