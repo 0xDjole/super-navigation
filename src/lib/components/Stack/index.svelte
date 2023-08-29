@@ -34,7 +34,7 @@
 					activeScreens.push({
 						...screensNav[historyIndex],
 						showHeader: screens[historyIndex].showHeader,
-						headerColor: screens[historyIndex].headerColor,
+						headerClass: screens[historyIndex].headerClass,
 						showBack: historyIndex > 0,
 						key: `${historyIndex}.${numOfSame}`
 					});
@@ -58,20 +58,18 @@
 	{#if navigationScreens && navigationScreens.length}
 		{#each navigationScreens as screen, index (screen.key)}
 			<Drawer animate={screen.animate} zIndex={index * 10} open={screen.opened}>
-				<div class="stack-item">
-					<Screen
-						headerColor={screen.headerColor}
-						showBack={screen.showBack}
+				<Screen
+					headerClass={screen.headerClass}
+					showBack={screen.showBack}
+					navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
+					title={screen.title}
+					showHeader={screen.showHeader === false ? false : true}
+				>
+					<svelte:component
+						this={screen.component}
 						navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
-						title={screen.title}
-						showHeader={screen.showHeader === false ? false : true}
-					>
-						<svelte:component
-							this={screen.component}
-							navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
-						/>
-					</Screen>
-				</div>
+					/>
+				</Screen>
 			</Drawer>
 		{/each}
 	{/if}
@@ -80,9 +78,5 @@
 <style type="text/postcss">
 	.stack-wrapper {
 		@apply relative w-screen min-h-screen h-full;
-	}
-	.stack-item {
-		@apply grid z-10 top-0 w-full bg-matte transition-transform min-h-screen;
-		grid-template-rows: min-content 1fr;
 	}
 </style>

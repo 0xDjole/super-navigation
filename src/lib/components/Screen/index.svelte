@@ -7,7 +7,7 @@
 	export let showBack;
 	export let navigationPath;
 	export let showHeader = true;
-	export let headerColor;
+	export let headerClass;
 
 	$: hasTab =
 		navigationPath && navigationPath.length
@@ -15,38 +15,40 @@
 			: false;
 </script>
 
-{#if showHeader}
-	<Header {headerColor}>
-		<div slot="left">
-			{#if showBack}
-				<div
-					class="back"
-					on:click={async () => {
-						navigation.back();
-					}}
-				>
-					Back
-				</div>
-			{/if}
-		</div>
-		<div slot="middle">
-			<span class="title">
-				{title}
-			</span>
-		</div>
-		<div slot="right" />
-	</Header>
-{/if}
+<div class="stack-item">
+	{#if showHeader}
+		<Header {headerClass}>
+			<div slot="left">
+				{#if showBack}
+					<div
+						class="back"
+						on:click={async () => {
+							navigation.back();
+						}}
+					>
+						Back
+					</div>
+				{/if}
+			</div>
+			<div slot="middle">
+				<span class="title">
+					{title}
+				</span>
+			</div>
+			<div slot="right" />
+		</Header>
+	{/if}
 
-{#if hasTab}
-	<div class:show-header={showHeader} class:not-show-header={!showHeader} class="wrap">
-		<div class="wrap-scroll">
-			<slot />
+	{#if hasTab}
+		<div class:show-header={showHeader} class:not-show-header={!showHeader} class="wrap">
+			<div class="wrap-scroll">
+				<slot />
+			</div>
 		</div>
-	</div>
-{:else}
-	<slot />
-{/if}
+	{:else}
+		<slot />
+	{/if}
+</div>
 
 <style type="text/postcss">
 	.wrap-scroll {
@@ -79,5 +81,10 @@
 
 	.back {
 		@apply grid justify-center items-center w-14 h-14 cursor-pointer;
+	}
+
+	.stack-item {
+		@apply grid z-10 top-0 w-full transition-transform min-h-screen;
+		grid-template-rows: min-content 1fr;
 	}
 </style>

@@ -8,6 +8,7 @@
 	export let screens;
 	export let navigationPath = [];
 	export let defaultIndex;
+	export let tabClass;
 
 	const parse = (navigation, navigationPath) => {
 		if (navigation && navigation.navigation) {
@@ -50,11 +51,6 @@
 	let navbar = config.navbar;
 
 	const handleClick = (path) => {
-		const index =
-			navigationScreens.findIndex((screen) => screen.path === path) === -1
-				? 0
-				: navigationScreens.findIndex((screen) => screen.path === path);
-
 		navigation.navigate(path);
 	};
 
@@ -65,7 +61,7 @@
 </script>
 
 {#if navigationScreens && navigationScreens.length}
-	<div style={`grid-template-rows: min-content 1fr;`} class="navigation-container">
+	<div style={`grid-template-rows: min-content 1fr;`} class={`navigation-container ${tabClass}`}>
 		<TabView {activeTabIndex} {navigationPath} {navigationScreens} />
 
 		<div class="navigation-bar-wrapper">

@@ -1,15 +1,10 @@
 <script>
 	export let showBorder = true;
 	export let sticky = true;
-	export let headerColor;
+	export let headerClass;
 </script>
 
-<div
-	class:header-sticky={sticky}
-	class:border={showBorder}
-	class="header"
-	style={`background-color: ${headerColor}`}
->
+<div class:header-sticky={sticky} class:border={showBorder} class={`header ${headerClass}`}>
 	<div class="header-item">
 		<slot class="header-item left" name="left" />
 	</div>
