@@ -84,7 +84,7 @@ FakeScreen component
 </div>
 ```
 
-## ``` navigation?.navigate('/path') ``` 
+## ``` navigation.navigate('/path') ``` 
 This is how you are navigating to different screens.
 
 ## ``` navigation.getSearchParam('param') ``` 
@@ -93,5 +93,5 @@ Get the current query parameters
 ## ``` navigation.back();``` 
 Go to the previous screen
 
-## ```navigation?.loadUp();``` 
-SuperNavigation is optimized for SvelteKit, allowing for server-side rendering of the initial screen. You then switch to client-side navigation and perform regular navigation with ```navigation?.navigate('/path')```.
+## ```navigation.loadUp();``` 
+SuperNavigation is optimized for SvelteKit, allowing for server-side rendering of the initial screen with regular ```+page.svelte``` from the routes. You then switch to client-side navigation ```navigation.loadUp()``` and perform regular navigation with ```navigation.navigate('/path')```.
