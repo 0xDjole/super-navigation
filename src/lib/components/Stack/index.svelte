@@ -7,7 +7,7 @@
 	import Screen from '../Screen/index.svelte';
 	export let screens;
 	export let navigationPath = [];
-	export let background = 'black';
+	export let background = 'bg-black';
 
 	let navigationScreens = [];
 	export let defaultIndex;
