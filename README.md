@@ -95,3 +95,8 @@ Go to the previous screen
 
 ## ```navigation.loadUp();``` 
 SuperNavigation is optimized for SvelteKit, allowing for server-side rendering of the initial screen with regular ```+page.svelte``` from the routes. You then switch to client-side navigation ```navigation.loadUp()``` and perform regular navigation with ```navigation.navigate('/path')```.
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
