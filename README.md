@@ -35,7 +35,7 @@ yarn add super-navigation
 ## Usage
 
 ### Stack navigation example 
-You can find a full working example at `https://github.com/0xDjole/super-navigation/tree/master/src/routes`
+You can find a full working example at `https://github.com/0xDjole/super-navigation/tree/master/src/routes`. Pull `https://github.com/0xDjole/super-navigation` and run `npm run dev` to play with the very basic example.
 
 ```svelte
 <script lang="ts">
