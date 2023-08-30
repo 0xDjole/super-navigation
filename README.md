@@ -1,38 +1,97 @@
-# create-svelte
+# SuperNavigation
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Not Your Average Navigation
 
-## Creating a project
+SuperNavigation is a powerful, customizable navigation library for Svelte and SvelteKit applications. It aims to bring a mobile UX to the web, making PWAs one step closer to a true native experience.
 
-If you're seeing this, you've probably already done this step. Congrats!
+### Caution
+Not ready for production, Documentation is under progress
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+### Features
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- Easy-to-use API for navigation between screens
+- Customizable header and screen styles
+- Dynamic screen loading
+- Built with TypeScript for type safety
+- Supports deep routing and nesting
+- Refreshable navigation states
+- Optimized for SvelteKit with server-side rendering support
+- Tailwind out of the box
 
-## Developing
+## Installation
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
+To install SuperNavigation, run the following command:
 
 ```bash
-npm run build
+npm install super-navigation
 ```
 
-You can preview the production build with `npm run preview`.
+Or if you're using Yarn:
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+```bash
+yarn add super-navigation
+```
+
+## Usage
+
+### Stack navigation example 
+You can find a full working example at `https://github.com/0xDjole/super-navigation/tree/master/src/routes`
+
+```svelte
+<script lang="ts">
+  import { navigation } from 'super-navigation';
+</script>
+
+<Stack
+  defaultIndex={0}
+  screens={[
+    {
+      component: FakeScreen,
+      title: 'Screen 1',
+      headerClass: 'bg-gray-500 border-solid border-b-2 border-gray-300',
+      path: '/'
+		},
+    {
+      component: FakeScreen2,
+      title: 'Screen 2',
+      path: '/screen2',
+      headerClass: 'bg-gray-500 border-solid border-b-2 border-gray-300',
+      backDefault: '/'
+    }
+  ]}
+/>
+```
+
+FakeScreen component
+
+```svelte
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { navigation } from 'super-navigation';
+
+  onMount(() => {
+    navigation?.loadUp();
+  });
+</script>
+
+<div style="height: 100%; background-color: red;">
+  <span class="text-white">Screen 1</span>
+  <div>
+    <button class="bg-green-300 p-3" on:click={() => navigation?.navigate('/screen2')}>
+      Go to screen 2
+    </button>
+  </div>
+</div>
+```
+
+## ``` navigation?.navigate('/path') ``` 
+This is how you are navigating to different screens.
+
+## ``` navigation.getSearchParam('param') ``` 
+Get the current query parameters
+
+## ``` navigation.back();``` 
+Go to the previous screen
+
+## ```navigation?.loadUp();``` 
+SuperNavigation is optimized for SvelteKit, allowing for server-side rendering of the initial screen. You then switch to client-side navigation and perform regular navigation with ```navigation?.navigate('/path')```.
