@@ -25,7 +25,7 @@
 						navigation.back();
 					}}
 				>
-					Back
+					<slot name="back" />
 				</div>
 			{/if}
 		</div>

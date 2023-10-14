@@ -67,6 +67,8 @@
 						title={screen.title}
 						showHeader={screen.showHeader === false ? false : true}
 					>
+						<svelte:component this={screen.backComponent} slot="back" />
+
 						<svelte:component
 							this={screen.component}
 							navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}

@@ -127,6 +127,7 @@ const createNavigateStore = () => {
 
 					return {
 						component: screen.component,
+						backComponent: screen.backComponent,
 						title: screen.title,
 						path: screen.path,
 						fullPath: activeScreenIndex === index ? fullPath : screen.path,
