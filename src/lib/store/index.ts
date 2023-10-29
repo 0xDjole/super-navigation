@@ -49,7 +49,6 @@ const createNavigateStore = () => {
 					? lodash.get(prevState.navigation, basePath.base).navigation
 					: prevState.navigation;
 
-				console.log(prevState.navigati);
 				const navHistory = parentNavigator.history;
 				const navScreens = parentNavigator.screens;
 				const lastHistoryScreen = navHistory[navHistory.length - 1];
@@ -71,7 +70,19 @@ const createNavigateStore = () => {
 					);
 
 					parentNavigator.history = [backScreen.index, lastHistoryScreen];
-					backFullPath = parentNavigator.screens[lastHistoryScreen].backDefault;
+
+					const queryString = window.location.search;
+					const params = new URLSearchParams(queryString);
+					const persistentParams = parentNavigator.screens[lastHistoryScreen].persistentParams;
+
+					for (const key of params.keys()) {
+						if (!persistentParams.includes(key)) {
+							params.delete(key);
+						}
+					}
+
+					backFullPath =
+						parentNavigator.screens[lastHistoryScreen].backDefault + '?' + params.toString();
 				}
 
 				const urlObject = new URL(`${window.location.origin}${backFullPath}`);
@@ -133,6 +144,7 @@ const createNavigateStore = () => {
 						fullPath: activeScreenIndex === index ? fullPath : screen.path,
 						isProtected: screen.isProtected,
 						backDefault: screen.backDefault,
+						persistentParams: screen.persistentParams,
 						navigation: {
 							history: [],
 							screens: []

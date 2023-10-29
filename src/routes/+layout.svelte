@@ -25,6 +25,7 @@
 			backComponent: Back,
 			title: 'Screen 2',
 			path: '/screen2',
+			persistentParams: [],
 			headerClass: 'bg-gray-500 border-solid border-b-2 border-gray-300',
 			backDefault: '/'
 		}
