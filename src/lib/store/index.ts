@@ -227,7 +227,7 @@ const createNavigateStore = () => {
 								for (const [key, value] of urlObject.searchParams) {
 									urlObject.searchParams.set(key, value);
 								}
-								window.history.replaceState({}, '', urlObject.toString());
+								window.history.pushState({}, '', urlObject.toString());
 
 								wantedNavScreen.opened = true;
 								wantedNavScreen.animate = true;
@@ -247,7 +247,7 @@ const createNavigateStore = () => {
 								for (const [key, value] of urlObject.searchParams) {
 									urlObject.searchParams.set(key, value);
 								}
-								window.history.replaceState({}, '', urlObject.toString());
+								window.history.pushState({}, '', urlObject.toString());
 
 								wantedNavScreen.opened = true;
 								wantedNavScreen.animate = true;
@@ -291,7 +291,7 @@ const createNavigateStore = () => {
 												];
 
 											currentScreen = currentScreen.navigation.screens[lastHistoryIndex];
-											window.history.replaceState(null, null, currentScreen.path);
+											window.history.replaceState({}, '', currentScreen.path);
 										}
 									}
 								}
