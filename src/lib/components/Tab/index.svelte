@@ -39,7 +39,7 @@
 				color: 'linear-gradient(145deg, ${theme(#1a1a1a)} 0%, #000000 100%)',
 				colorActive: '#212121'
 			},
-			borderTop: { color: '#1c1c1c', colorActive: 'orange', width: 1 },
+			borderTop: { color: '#8b98a5', colorActive: 'orange', width: 1 },
 			text: {
 				color: '#5e5e5e',
 				colorActive: 'white',
