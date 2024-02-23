@@ -50,7 +50,7 @@
 
 <style type="text/postcss">
 	.wrap-scroll {
-		@apply w-full h-full overflow-y-scroll;
+		@apply flex flex-col w-full h-full overflow-y-scroll;
 	}
 
 	.wrap-scroll::-webkit-scrollbar {
