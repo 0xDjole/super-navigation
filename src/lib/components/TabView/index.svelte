@@ -18,7 +18,7 @@
 			<div class="tab-item">
 				<svelte:component
 					this={navigationScreen.component}
-					{...screen.props || {}}
+					{...navigationScreen.props || {}}
 					navigationPath={[
 						...navigationPath,
 						{ navigationType: 'Tab', index: navigationScreen.index }
