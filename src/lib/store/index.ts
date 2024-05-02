@@ -197,13 +197,16 @@ const createNavigateStore = () => {
 		navigate: (url, { reload } = { reload: false }, callback = () => {}) =>
 			update((prevState) => {
 				const navigationPath = prevState.navigationPath[window.location.pathname];
+
 				if (prevState.navigating) {
 					return prevState;
 				}
+
 				prevState.navigating = true;
 
 				if (reload) {
 					goto(url);
+					return null;
 				}
 				const path = getPathFromUrl(url);
 
