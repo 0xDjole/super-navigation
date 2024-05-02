@@ -71,6 +71,7 @@
 
 						<svelte:component
 							this={screen.component}
+							{...screen.props || {}}
 							navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
 						/>
 					</Screen>
