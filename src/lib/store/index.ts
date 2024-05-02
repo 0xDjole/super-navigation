@@ -139,6 +139,7 @@ const createNavigateStore = () => {
 					return {
 						component: screen.component,
 						backComponent: screen.backComponent,
+						props: screen.props,
 						title: screen.title,
 						path: screen.path,
 						fullPath: activeScreenIndex === index ? fullPath : screen.path,
@@ -193,7 +194,7 @@ const createNavigateStore = () => {
 				}
 			}),
 
-		navigate: (url, { reload } = { reload: false }, callback = () => { }) =>
+		navigate: (url, { reload } = { reload: false }, callback = () => {}) =>
 			update((prevState) => {
 				const navigationPath = prevState.navigationPath[window.location.pathname];
 				if (prevState.navigating) {
@@ -287,7 +288,7 @@ const createNavigateStore = () => {
 										while (currentScreen?.navigation?.history?.length) {
 											const lastHistoryIndex =
 												currentScreen.navigation.history[
-												currentScreen.navigation.history.length - 1
+													currentScreen.navigation.history.length - 1
 												];
 
 											currentScreen = currentScreen.navigation.screens[lastHistoryIndex];
