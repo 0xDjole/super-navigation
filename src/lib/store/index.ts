@@ -143,7 +143,7 @@ const createNavigateStore = () => {
 						title: screen.title,
 						path: screen.path,
 						fullPath: activeScreenIndex === index ? fullPath : screen.path,
-						isProtected: screen.isProtected,
+						gate: screen.gate,
 						backDefault: screen.backDefault,
 						persistentParams: screen.persistentParams,
 						navigation: {
@@ -222,6 +222,14 @@ const createNavigateStore = () => {
 
 							const wantedScreenIndex = navScreens.findIndex((sc) => sc.path === path);
 							const wantedNavScreen = navScreens[wantedScreenIndex];
+
+							if (wantedNavScreen.gate) {
+								const result = wantedNavScreen.gate();
+
+								if (!result) {
+									return null;
+								}
+							}
 
 							const navType =
 								wantedNavScreen.navigationPath[wantedNavScreen.navigationPath.length - 1]
