@@ -119,13 +119,23 @@ const createNavigateStore = () => {
 			update((prevState) => {
 				const path = urlObject.pathname;
 				const fullPath = `${urlObject.pathname}${urlObject.search}`;
+				console.log('screens', screens, path);
 				let activeScreenIndex = screens.findIndex((screen) => screen.path === path);
+
 				if (activeScreenIndex === -1) {
 					activeScreenIndex = defaultIndex;
 				}
 
 				const basePath = getScreenPath(navigationPath, false);
 				const navScreens = lodash.get(prevState.navigation, basePath.base);
+				console.log(navScreens);
+				const screen = screens[activeScreenIndex];
+
+				const wantedScreen = screens.find((screen) => screen.path === window.location.pathname);
+
+				if (wantedScreen && wantedScreen.onInit) {
+					wantedScreen.onInit();
+				}
 
 				const parsedScreens = screens.map((screen, index) => {
 					prevState.navigationPath[screen.path] = [
@@ -143,7 +153,8 @@ const createNavigateStore = () => {
 						title: screen.title,
 						path: screen.path,
 						fullPath: activeScreenIndex === index ? fullPath : screen.path,
-						gate: screen.gate,
+						onNavigate: screen.onNavigate,
+						onInit: screen.onInit,
 						backDefault: screen.backDefault,
 						persistentParams: screen.persistentParams,
 						navigation: {
@@ -223,8 +234,8 @@ const createNavigateStore = () => {
 							const wantedScreenIndex = navScreens.findIndex((sc) => sc.path === path);
 							const wantedNavScreen = navScreens[wantedScreenIndex];
 
-							if (wantedNavScreen.gate) {
-								const result = wantedNavScreen.gate();
+							if (wantedNavScreen.onNavigate) {
+								const result = wantedNavScreen.onNavigate();
 
 								if (!result) {
 									return null;
