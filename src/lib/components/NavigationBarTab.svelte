@@ -31,6 +31,5 @@
 <style type="text/postcss">
 	.navigation-bar-tab {
 		@apply relative grid font-bold justify-items-center cursor-pointer grid-cols-1 gap-x-5 pt-2;
-		height: 55px;
 	}
 </style>

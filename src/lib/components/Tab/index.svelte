@@ -26,8 +26,15 @@
 		return [];
 	};
 
+	const setVhProperty = () => {
+		const vh = window.innerHeight * 0.01;
+		document.documentElement.style.setProperty('--super-navigation-vh', `${vh}px`);
+	};
+
 	onMount(() => {
 		navigation.init(screens, 'Tab', window.location, navigationPath, defaultIndex);
+		setVhProperty();
+		window.addEventListener('resize', setVhProperty);
 	});
 
 	$: navigationScreens = parse($navigation, navigationPath);
@@ -61,18 +68,18 @@
 </script>
 
 {#if navigationScreens && navigationScreens.length}
-	<div style={`grid-template-rows: min-content 1fr;`} class={`navigation-container ${tabClass}`}>
-		<TabView {activeTabIndex} {navigationPath} {navigationScreens} />
-
-		<div class="navigation-bar-wrapper">
-			<NavigationBar {navbar} tabs={screens} {handleClick} {activeTabIndex} />
+	<div class={`navigation-container ${tabClass}`}>
+		<div style="height: calc(var(--super-navigation-vh, 1vh) * 100 - 55px);">
+			<TabView {activeTabIndex} {navigationPath} {navigationScreens} />
 		</div>
+
+		<NavigationBar {navbar} tabs={screens} {handleClick} {activeTabIndex} />
 	</div>
 {/if}
 
 <style type="text/postcss">
 	.navigation-container {
-		@apply absolute grid min-h-screen w-full;
+		@apply absolute min-h-screen w-full flex flex-col;
 		margin: 0 auto;
 	}
 
@@ -81,5 +88,8 @@
 		z-index: 100;
 		width: 100%;
 		bottom: 0;
+	}
+	.tab-view-wrapper {
+		@apply relative;
 	}
 </style>
