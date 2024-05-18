@@ -69,7 +69,7 @@
 
 {#if navigationScreens && navigationScreens.length}
 	<div class={`navigation-container ${tabClass}`}>
-		<div style="height: calc(var(--super-navigation-vh, 1vh) * 100 - 55px);">
+		<div style="height: calc(var(--super-navigation-vh, 1vh) * 100 - 50px);">
 			<TabView {activeTabIndex} {navigationPath} {navigationScreens} />
 		</div>
 
