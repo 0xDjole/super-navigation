@@ -35,7 +35,7 @@
 	}
 
 	.tab-view {
-		@apply grid grid-flow-col;
+		@apply flex h-full;
 		overflow: hidden;
 	}
 

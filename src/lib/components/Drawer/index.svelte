@@ -13,7 +13,7 @@
 
 	let mounted = false;
 
-	let h = '100vh';
+	let h = '100%';
 
 	let w = '100%';
 

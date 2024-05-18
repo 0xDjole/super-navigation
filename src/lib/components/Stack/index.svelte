@@ -83,11 +83,10 @@
 
 <style type="text/postcss">
 	.stack-wrapper {
-		@apply relative w-screen min-h-screen h-full;
+		@apply relative w-screen h-full;
 	}
 
 	.stack-item {
-		@apply grid z-10 top-0 w-full transition-transform min-h-screen;
-		grid-template-rows: min-content 1fr;
+		@apply z-10 top-0 w-full transition-transform h-full;
 	}
 </style>

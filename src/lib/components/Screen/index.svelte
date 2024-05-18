@@ -39,7 +39,7 @@
 {/if}
 
 {#if hasTab}
-	<div class:show-header={showHeader} class:not-show-header={!showHeader} class="wrap">
+	<div class="wrap">
 		<div class="wrap-scroll">
 			<slot />
 		</div>
@@ -58,23 +58,11 @@
 		background: transparent;
 	}
 
-	.show-header {
-		height: calc(100vh - 60px - 55px);
-		@screen md {
-			height: calc(100vh - 80px - 55px);
-		}
-	}
-
-	.not-show-header {
-		height: calc(100vh - 55px);
-	}
-
 	.title {
 		@apply whitespace-nowrap;
 	}
 	.wrap {
-		@apply w-screen mx-auto overflow-hidden;
-		grid-template-columns: 1fr;
+		@apply w-screen mx-auto overflow-hidden h-full;
 	}
 
 	.back {
