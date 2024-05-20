@@ -314,7 +314,7 @@ const createNavigateStore = () => {
 												];
 
 											currentScreen = currentScreen.navigation.screens[lastHistoryIndex];
-											window.history.replaceState({}, '', currentScreen.path);
+											window.history.replaceState({}, '', currentScreen.fullPath);
 										}
 									}
 								}
