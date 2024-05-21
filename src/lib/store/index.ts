@@ -119,7 +119,6 @@ const createNavigateStore = () => {
 			update((prevState) => {
 				const path = urlObject.pathname;
 				const fullPath = `${urlObject.pathname}${urlObject.search}`;
-				console.log('screens', screens, path);
 				let activeScreenIndex = screens.findIndex((screen) => screen.path === path);
 
 				if (activeScreenIndex === -1) {
@@ -128,7 +127,6 @@ const createNavigateStore = () => {
 
 				const basePath = getScreenPath(navigationPath, false);
 				const navScreens = lodash.get(prevState.navigation, basePath.base);
-				console.log(navScreens);
 				const screen = screens[activeScreenIndex];
 
 				const wantedScreen = screens.find((screen) => screen.path === window.location.pathname);
@@ -146,13 +144,15 @@ const createNavigateStore = () => {
 						}
 					];
 
+					console.log('djole ', screen, activeScreenIndex);
+
 					return {
 						component: screen.component,
 						backComponent: screen.backComponent,
 						props: screen.props,
 						title: screen.title,
 						path: screen.path,
-						fullPath: activeScreenIndex === index ? fullPath : screen.path,
+						fullPath: urlObject.pathname == screen.path ? fullPath : screen.path,
 						onNavigate: screen.onNavigate,
 						onInit: screen.onInit,
 						backDefault: screen.backDefault,
