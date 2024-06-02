@@ -144,8 +144,6 @@ const createNavigateStore = () => {
 						}
 					];
 
-					console.log('djole ', screen, activeScreenIndex);
-
 					return {
 						component: screen.component,
 						backComponent: screen.backComponent,
