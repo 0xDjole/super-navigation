@@ -10,10 +10,12 @@ export { default as NavigationBar } from './components/NavigationBar.svelte';
 
 export { navigation } from './store';
 
+const popStateHandler = (event) => {
+	navigation?.back();
+};
+
+export { popStateHandler };
+
 if (typeof window !== 'undefined') {
-  window.addEventListener('popstate', (event) => {
-    console.log(event);
-    // Assuming navigation is a function that handles the back action
-    navigation?.back();
-  });
+	window.addEventListener('popstate', popStateHandler);
 }
