@@ -22,6 +22,6 @@
 
 <style type="text/postcss">
 	.navigation-bar {
-		@apply w-full grid list-none self-end text-lg;
+		@apply w-full grid list-none self-end text-lg flex-1;
 	}
 </style>
