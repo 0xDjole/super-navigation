@@ -24,7 +24,7 @@
 	on:click={() => handleClick(tab.path)}
 >
 	<div style="padding-top: 4px">
-		<SvgIcon fill={isActive ? 'orange' : 'white'} data={tab.icon.data} class="self-end" />
+		<SvgIcon fill={color} data={tab.icon.data} class="self-end" />
 	</div>
 </li>
 

@@ -9,6 +9,21 @@
 	export let navigationPath = [];
 	export let defaultIndex;
 	export let tabClass;
+	export let tabConfig = {
+		defaultTab: '/',
+		navbar: {
+			background: {
+				color: 'linear-gradient(145deg, ${theme(#1a1a1a)} 0%, #000000 100%)',
+				colorActive: '#212121'
+			},
+			borderTop: { color: '#8b98a5', colorActive: 'orange', width: 1 },
+			text: {
+				color: '#5e5e5e',
+				colorActive: 'white',
+				fontFamily: `'Lato', sans-serif`
+			}
+		}
+	};
 
 	const parse = (navigation, navigationPath) => {
 		if (navigation && navigation.navigation) {
@@ -39,23 +54,7 @@
 
 	$: navigationScreens = parse($navigation, navigationPath);
 
-	let config = {
-		defaultTab: '/',
-		navbar: {
-			background: {
-				color: 'linear-gradient(145deg, ${theme(#1a1a1a)} 0%, #000000 100%)',
-				colorActive: '#212121'
-			},
-			borderTop: { color: '#8b98a5', colorActive: 'orange', width: 1 },
-			text: {
-				color: '#5e5e5e',
-				colorActive: 'white',
-				fontFamily: `'Lato', sans-serif`
-			}
-		}
-	};
-
-	let navbar = config.navbar;
+	let navbar = tabConfig.navbar;
 
 	const handleClick = (path) => {
 		navigation.navigate(path);

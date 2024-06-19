@@ -75,7 +75,7 @@ const createNavigateStore = () => {
 					const params = new URLSearchParams(queryString);
 					const persistentParams = parentNavigator.screens[lastHistoryScreen].persistentParams;
 
-					for (const key of params.keys()) {
+					for (const key of [...params.keys()]) {
 						if (!persistentParams.includes(key)) {
 							params.delete(key);
 						}
@@ -246,6 +246,7 @@ const createNavigateStore = () => {
 
 							if (navType === 'Stack') {
 								for (const [key, value] of urlObject.searchParams) {
+									console.log('keee ', key, value);
 									urlObject.searchParams.set(key, value);
 								}
 								window.history.pushState({}, '', urlObject.toString());
