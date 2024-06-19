@@ -246,7 +246,6 @@ const createNavigateStore = () => {
 
 							if (navType === 'Stack') {
 								for (const [key, value] of urlObject.searchParams) {
-									console.log('keee ', key, value);
 									urlObject.searchParams.set(key, value);
 								}
 								window.history.pushState({}, '', urlObject.toString());
