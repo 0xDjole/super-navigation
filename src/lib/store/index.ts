@@ -32,7 +32,7 @@ const createNavigateStore = () => {
 		});
 	};
 
-	const back = () =>
+	const back = (isDefaultBack = false) =>
 		update((prevState) => {
 			if (prevState.navigating) {
 				return prevState;
@@ -58,7 +58,7 @@ const createNavigateStore = () => {
 
 				let backFullPath;
 
-				if (navHistory && navHistory.length > 1) {
+				if (!isDefaultBack && navHistory && navHistory.length > 1) {
 					const beforeLastHistoryScreen = navHistory[navHistory.length - 2];
 
 					backFullPath = parentNavigator.screens[beforeLastHistoryScreen].fullPath;
