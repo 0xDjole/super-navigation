@@ -65,9 +65,14 @@ const createNavigateStore = () => {
 					parentNavigator.screens[beforeLastHistoryScreen].opened = true;
 					parentNavigator.screens[beforeLastHistoryScreen].animate = false;
 				} else {
-					const backScreen = navScreens.find(
+					const backScreenIdx = navScreens.findIndex(
 						(screen) => screen.path === parentNavigator.screens[lastHistoryScreen].backDefault
 					);
+
+					const backScreen = navScreens[backScreenIdx];
+
+					parentNavigator.screens[backScreenIdx].opened = true;
+					parentNavigator.screens[backScreenIdx].animate = false;
 
 					parentNavigator.history = [backScreen.index, lastHistoryScreen];
 
@@ -97,6 +102,7 @@ const createNavigateStore = () => {
 				afterBack(basePath);
 			}, 800);
 
+			console.log(prevState);
 			return prevState;
 		});
 
