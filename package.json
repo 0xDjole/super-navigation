@@ -17,26 +17,29 @@
 		}
 	},
 	"devDependencies": {
+		"@sveltejs/kit": "^2.5.0",
+		"@sveltejs/package": "2.2.6",
 		"@types/lodash": "^4.14.197",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
-		"@sveltejs/package": "2.2.6",
-		"@sveltejs/kit": "^2.5.0",
+		"autoprefixer": "^10.4.13",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.35.1",
 		"lodash": "^4.17.21",
-		"prettier": "^2.8.0",
-		"prettier-plugin-svelte": "^2.8.1",
-		"tslib": "^2.4.1",
-		"tailwindcss": "^3.2.4",
 		"postcss": "^8.4.21",
 		"postcss-import": "^15.0.0",
 		"postcss-load-config": "^4.0.1",
-		"autoprefixer": "^10.4.13",
-		"vite": "^5.0.12",
+		"prettier": "^2.8.0",
+		"prettier-plugin-svelte": "^2.8.1",
 		"svelte": "^4.2.9",
 		"svelte-preprocess": "^5.1.3",
-		"typescript": "^5.3.3"
+		"tailwindcss": "^3.2.4",
+		"tslib": "^2.4.1",
+		"typescript": "^5.3.3",
+		"vite": "^5.0.12"
+	},
+	"dependencies": {
+		"smoki": "^0.0.160"
 	}
 }
