@@ -21,7 +21,7 @@
 	}
 
 	.header {
-		@apply top-0 text-white text-2xl font-bold grid grid-flow-col gap-x-2 justify-start items-center w-full;
+		@apply top-0 bg-primary text-primary text-2xl font-bold grid grid-flow-col gap-x-2 justify-start items-center w-full;
 		grid-template-columns: 1fr 5fr 1fr;
 		height: 60px;
 		@screen md {
