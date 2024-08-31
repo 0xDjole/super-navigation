@@ -58,10 +58,21 @@ const createNavigateStore = () => {
 
 				let backFullPath;
 
+				const queryString = window.location.search;
+				const params = new URLSearchParams(queryString);
+				const persistentParams = parentNavigator.screens[lastHistoryScreen].persistentParams;
+
+				for (const key of [...params.keys()]) {
+					if (!persistentParams.includes(key)) {
+						params.delete(key);
+					}
+				}
+
 				if (!isDefaultBack && navHistory && navHistory.length > 1) {
 					const beforeLastHistoryScreen = navHistory[navHistory.length - 2];
 
-					backFullPath = parentNavigator.screens[beforeLastHistoryScreen].fullPath;
+					backFullPath =
+						parentNavigator.screens[beforeLastHistoryScreen].fullPath + '?' + params.toString();
 					parentNavigator.screens[beforeLastHistoryScreen].opened = true;
 					parentNavigator.screens[beforeLastHistoryScreen].animate = false;
 				} else {
@@ -75,16 +86,6 @@ const createNavigateStore = () => {
 					parentNavigator.screens[backScreenIdx].animate = false;
 
 					parentNavigator.history = [backScreen.index, lastHistoryScreen];
-
-					const queryString = window.location.search;
-					const params = new URLSearchParams(queryString);
-					const persistentParams = parentNavigator.screens[lastHistoryScreen].persistentParams;
-
-					for (const key of [...params.keys()]) {
-						if (!persistentParams.includes(key)) {
-							params.delete(key);
-						}
-					}
 
 					backFullPath =
 						parentNavigator.screens[lastHistoryScreen].backDefault + '?' + params.toString();
@@ -102,7 +103,6 @@ const createNavigateStore = () => {
 				afterBack(basePath);
 			}, 800);
 
-			console.log(prevState);
 			return prevState;
 		});
 
