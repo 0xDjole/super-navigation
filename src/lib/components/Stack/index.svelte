@@ -69,6 +69,8 @@
 						title={screen.title}
 						showHeader={screen.showHeader === false ? false : true}
 					>
+						<svelte:component this={screen.backComponent} slot="back" />
+
 						<LazyComponent
 							component={screen.component}
 							loader={screen.loader}

@@ -5,14 +5,18 @@
 	export let component = null;
 	export let loader = null;
 	export let props = {};
+	export let onLoad = () => {};
 
 	let dynamicComponent = component;
 
-	$: console.log('props', props);
 	onMount(async () => {
 		if (!dynamicComponent && loader) {
 			const module = await loader();
 			dynamicComponent = module.default;
+
+			setTimeout(() => {
+				onLoad();
+			}, 10);
 		}
 	});
 </script>

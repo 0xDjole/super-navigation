@@ -8,27 +8,41 @@
 	let tabView;
 	let tabWidth;
 
-	$: if (tabView) {
+	let loadedFirst = false;
+
+	const onLoad = (index) => {
+		tabView.style.scrollBehavior = 'auto';
 		tabView.scrollTo({ left: tabWidth * activeTabIndex });
+
+		setTimeout(() => {
+			loadedFirst = true;
+		}, 10);
+	};
+
+	$: if (loadedFirst) {
 		tabView.style.scrollBehavior = 'smooth';
+		tabView.scrollTo({ left: tabWidth * activeTabIndex });
 	}
 </script>
 
 {#if navigationScreens && navigationScreens.length}
 	<div bind:clientWidth={tabWidth} bind:this={tabView} class="tab-view">
-		{#each navigationScreens as navigationScreen}
+		{#each navigationScreens as navigationScreen, index}
 			<div class="tab-item">
-				<LazyComponent
-					component={navigationScreen.component}
-					loader={navigationScreen.loader}
-					props={{
-						...(navigationScreen.props || {}),
-						navigationPath: [
-							...navigationPath,
-							{ navigationType: 'Tab', index: navigationScreen.index }
-						]
-					}}
-				/>
+				{#if index === activeTabIndex || loadedFirst}
+					<LazyComponent
+						onLoad={() => onLoad(index)}
+						component={navigationScreen.component}
+						loader={navigationScreen.loader}
+						props={{
+							...(navigationScreen.props || {}),
+							navigationPath: [
+								...navigationPath,
+								{ navigationType: 'Tab', index: navigationScreen.index }
+							]
+						}}
+					/>
+				{/if}
 			</div>
 		{/each}
 	</div>
