@@ -5,6 +5,8 @@
 
 	import Drawer from '../Drawer/index.svelte';
 	import Screen from '../Screen/index.svelte';
+	import LazyComponent from '../LazyComponent.svelte'; // Import LazyComponent
+
 	export let screens;
 	export let navigationPath = [];
 	export let background = 'bg-primary';
@@ -67,12 +69,16 @@
 						title={screen.title}
 						showHeader={screen.showHeader === false ? false : true}
 					>
-						<svelte:component this={screen.backComponent} slot="back" />
-
-						<svelte:component
-							this={screen.component}
-							{...screen.props || {}}
-							navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
+						<LazyComponent
+							component={screen.component}
+							loader={screen.loader}
+							props={{
+								...(screen.props || {}),
+								navigationPath: [
+									...navigationPath,
+									{ navigationType: 'Stack', index: screen.index }
+								]
+							}}
 						/>
 					</Screen>
 				</div>

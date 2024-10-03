@@ -152,6 +152,7 @@ const createNavigateStore = () => {
 
 					return {
 						component: screen.component,
+						loader: screen.loader,
 						backComponent: screen.backComponent,
 						props: screen.props,
 						title: screen.title,
