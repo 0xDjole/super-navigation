@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { navigation } from '../../store';
 	import LazyComponent from '../LazyComponent.svelte';
 
 	export let navigationPath;

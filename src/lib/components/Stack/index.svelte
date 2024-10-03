@@ -57,7 +57,15 @@
 	});
 </script>
 
-<div class="stack-wrapper">
+{#if !$navigation?.loaded}
+	<slot />
+{/if}
+
+<div
+	class:display={$navigation?.loaded}
+	class:not-display={!$navigation?.loaded}
+	class="stack-wrapper"
+>
 	{#if navigationScreens && navigationScreens.length}
 		{#each navigationScreens as screen, index (screen.key)}
 			<Drawer animate={screen.animate} zIndex={index * 10} open={screen.opened}>
@@ -90,6 +98,14 @@
 </div>
 
 <style type="text/postcss">
+	.display {
+		@apply block;
+	}
+
+	.not-display {
+		@apply hidden;
+	}
+
 	.stack-wrapper {
 		@apply relative w-screen h-full;
 	}
