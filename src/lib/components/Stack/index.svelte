@@ -62,8 +62,8 @@
 {/if}
 
 <div
-	class:display={$navigation?.loaded}
-	class:not-display={!$navigation?.loaded}
+	class:not-displayo={!$navigation?.loaded}
+	class:displayo={$navigation?.loaded}
 	class="stack-wrapper"
 >
 	{#if navigationScreens && navigationScreens.length}
@@ -98,12 +98,12 @@
 </div>
 
 <style type="text/postcss">
-	.display {
-		@apply block;
+	.displayo {
+		@apply opacity-100;
 	}
 
-	.not-display {
-		@apply hidden;
+	.not-displayo {
+		@apply opacity-0;
 	}
 
 	.stack-wrapper {

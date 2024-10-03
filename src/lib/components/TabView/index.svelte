@@ -15,9 +15,7 @@
 		tabView.style.scrollBehavior = 'auto';
 		tabView.scrollTo({ left: tabWidth * activeTabIndex });
 
-		setTimeout(() => {
-			loadedFirst = true;
-		}, 10);
+		loadedFirst = true;
 	};
 
 	$: if (loadedFirst) {

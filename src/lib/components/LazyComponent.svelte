@@ -14,9 +14,7 @@
 			const module = await loader();
 			dynamicComponent = module.default;
 
-			setTimeout(() => {
-				onLoad();
-			}, 10);
+			onLoad();
 		}
 	});
 </script>
