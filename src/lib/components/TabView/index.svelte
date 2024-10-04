@@ -9,16 +9,12 @@
 	let tabView;
 	let tabWidth;
 
-	let loadedFirst = false;
-
 	const onLoad = (index) => {
 		tabView.style.scrollBehavior = 'auto';
 		tabView.scrollTo({ left: tabWidth * activeTabIndex });
-
-		loadedFirst = true;
 	};
 
-	$: if (loadedFirst) {
+	$: if ($navigation?.loaded && activeTabIndex !== null) {
 		tabView.style.scrollBehavior = 'smooth';
 		tabView.scrollTo({ left: tabWidth * activeTabIndex });
 	}
@@ -28,7 +24,7 @@
 	<div bind:clientWidth={tabWidth} bind:this={tabView} class="tab-view">
 		{#each navigationScreens as navigationScreen, index}
 			<div class="tab-item">
-				{#if index === activeTabIndex || loadedFirst}
+				{#if index === activeTabIndex || $navigation?.loaded}
 					<LazyComponent
 						onLoad={() => onLoad(index)}
 						component={navigationScreen.component}
