@@ -98,11 +98,11 @@
 </div>
 
 <style type="text/postcss">
-	.displayo {
+	.display {
 		@apply opacity-100;
 	}
 
-	.not-displayo {
+	.not-display {
 		@apply opacity-0;
 	}
 
