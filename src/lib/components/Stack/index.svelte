@@ -62,8 +62,8 @@
 {/if}
 
 <div
-	class:not-displayo={!$navigation?.loaded}
-	class:displayo={$navigation?.loaded}
+	class:not-display={!$navigation?.loaded}
+	class:display={$navigation?.loaded}
 	class="stack-wrapper"
 >
 	{#if navigationScreens && navigationScreens.length}
