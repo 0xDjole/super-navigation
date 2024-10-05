@@ -183,6 +183,13 @@ const createNavigateStore = () => {
 					};
 				});
 
+				const url = new URL(window.location.href);
+
+				for (const [key, value] of url.searchParams) {
+					url.searchParams.set(key, value);
+				}
+				window.history.pushState({}, '', url.toString());
+
 				if (navigationType === 'Stack') {
 					if (!navScreens?.navigation?.history.length) {
 						lodash.set(prevState.navigation, basePath.screens, parsedScreens);
