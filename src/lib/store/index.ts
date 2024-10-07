@@ -98,6 +98,7 @@ const createNavigateStore = () => {
 				}
 
 				window.history.replaceState({}, '', urlObject.toString());
+
 				prevState.url = urlObject.toString();
 			}
 
@@ -189,7 +190,7 @@ const createNavigateStore = () => {
 				for (const [key, value] of url.searchParams) {
 					url.searchParams.set(key, value);
 				}
-				window.history.pushState({}, '', url.toString());
+				window.history.replaceState({}, '', url.toString());
 
 				prevState.url = url.toString();
 
@@ -269,7 +270,7 @@ const createNavigateStore = () => {
 								for (const [key, value] of urlObject.searchParams) {
 									urlObject.searchParams.set(key, value);
 								}
-								window.history.pushState({}, '', urlObject.toString());
+								window.history.replaceState(null, null, urlObject.toString());
 
 								wantedNavScreen.opened = true;
 								wantedNavScreen.animate = true;
@@ -289,7 +290,7 @@ const createNavigateStore = () => {
 								for (const [key, value] of urlObject.searchParams) {
 									urlObject.searchParams.set(key, value);
 								}
-								window.history.pushState({}, '', urlObject.toString());
+								window.history.replaceState({}, '', urlObject.toString());
 
 								prevState.url = urlObject.toString();
 
