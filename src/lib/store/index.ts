@@ -27,7 +27,6 @@ const createNavigateStore = () => {
 			const historyPath = basePath.history;
 			const history = lodash.get(prevState.navigation, historyPath);
 			lodash.set(prevState.navigation, historyPath, history.slice(0, -1));
-
 			return prevState;
 		});
 	};
@@ -61,7 +60,6 @@ const createNavigateStore = () => {
 				const currentUrl = new URL(window.location.href);
 
 				const persistentParams = parentNavigator.screens[lastHistoryScreen].persistentParams;
-				console.log('persistentParams ', currentUrl, persistentParams);
 
 				for (const [key, value] of currentUrl.searchParams) {
 					if (!persistentParams.includes(key)) {
@@ -70,7 +68,6 @@ const createNavigateStore = () => {
 				}
 
 				let params = currentUrl.searchParams.toString();
-				console.log('PA ', params);
 
 				if (!isDefaultBack && navHistory && navHistory.length > 1) {
 					const beforeLastHistoryScreen = navHistory[navHistory.length - 2];
@@ -98,6 +95,7 @@ const createNavigateStore = () => {
 				for (const [key, value] of urlObject.searchParams) {
 					urlObject.searchParams.set(key, value);
 				}
+
 				window.history.replaceState({}, '', urlObject.toString());
 			}
 
@@ -135,7 +133,6 @@ const createNavigateStore = () => {
 
 				const basePath = getScreenPath(navigationPath, false);
 				const navScreens = lodash.get(prevState.navigation, basePath.base);
-				const screen = screens[activeScreenIndex];
 
 				const wantedScreen = screens.find((screen) => screen.path === window.location.pathname);
 
@@ -190,7 +187,7 @@ const createNavigateStore = () => {
 				for (const [key, value] of url.searchParams) {
 					url.searchParams.set(key, value);
 				}
-				window.history.pushState({}, '', url.toString());
+				window.history.replaceState({}, '', url.toString());
 
 				if (navigationType === 'Stack') {
 					if (!navScreens?.navigation?.history.length) {
@@ -265,7 +262,7 @@ const createNavigateStore = () => {
 								for (const [key, value] of urlObject.searchParams) {
 									urlObject.searchParams.set(key, value);
 								}
-								window.history.pushState({}, '', urlObject.toString());
+								window.history.replaceState({}, '', urlObject.toString());
 
 								wantedNavScreen.opened = true;
 								wantedNavScreen.animate = true;
@@ -285,7 +282,7 @@ const createNavigateStore = () => {
 								for (const [key, value] of urlObject.searchParams) {
 									urlObject.searchParams.set(key, value);
 								}
-								window.history.pushState({}, '', urlObject.toString());
+								window.history.replaceState({}, '', urlObject.toString());
 
 								wantedNavScreen.opened = true;
 								wantedNavScreen.animate = true;
