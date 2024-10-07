@@ -68,31 +68,33 @@
 >
 	{#if navigationScreens && navigationScreens.length}
 		{#each navigationScreens as screen, index (screen.key)}
-			<Drawer animate={screen.animate} zIndex={index * 10} open={screen.opened}>
-				<div class={`stack-item ${background}`}>
-					<Screen
-						headerClass={screen.headerClass}
-						showBack={screen.showBack}
-						navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
-						title={screen.title}
-						showHeader={screen.showHeader === false ? false : true}
-					>
-						<svelte:component this={screen.backComponent} slot="back" />
+			{#if screen.opened || $navigation.navigating}
+				<Drawer animate={screen.animate} zIndex={index * 10} open={screen.opened}>
+					<div class={`stack-item ${background}`}>
+						<Screen
+							headerClass={screen.headerClass}
+							showBack={screen.showBack}
+							navigationPath={[...navigationPath, { navigationType: 'Stack', index: screen.index }]}
+							title={screen.title}
+							showHeader={screen.showHeader === false ? false : true}
+						>
+							<svelte:component this={screen.backComponent} slot="back" />
 
-						<LazyComponent
-							component={screen.component}
-							loader={screen.loader}
-							props={{
-								...(screen.props || {}),
-								navigationPath: [
-									...navigationPath,
-									{ navigationType: 'Stack', index: screen.index }
-								]
-							}}
-						/>
-					</Screen>
-				</div>
-			</Drawer>
+							<LazyComponent
+								component={screen.component}
+								loader={screen.loader}
+								props={{
+									...(screen.props || {}),
+									navigationPath: [
+										...navigationPath,
+										{ navigationType: 'Stack', index: screen.index }
+									]
+								}}
+							/>
+						</Screen>
+					</div>
+				</Drawer>
+			{/if}
 		{/each}
 	{/if}
 </div>

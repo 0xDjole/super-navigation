@@ -10,7 +10,7 @@ const createNavigateStore = () => {
 		return null;
 	}
 
-	const { subscribe, update } = writable<Navigate>({
+	const { subscribe, update, set } = writable<Navigate>({
 		loaded: false,
 		navigating: false,
 		url: '',
@@ -236,6 +236,9 @@ const createNavigateStore = () => {
 				}
 				const path = getPathFromUrl(url);
 
+				const currentBasePath = getScreenPath(navigationPath, true);
+				const currentScreenIndex = navigationPath[navigationPath.length - 1].index;
+
 				const wantedNavigationPath = prevState.navigationPath[path];
 
 				const urlObject = new URL(`${window.location.origin}${url}`);
@@ -344,7 +347,15 @@ const createNavigateStore = () => {
 
 				setTimeout(() => {
 					prevState.navigating = false;
-					return prevState;
+
+					const screensPath = currentBasePath.screens;
+					const screensNav = lodash.get(prevState.navigation, screensPath);
+
+					if (screensNav && screensNav[currentScreenIndex]) {
+						screensNav[currentScreenIndex].opened = false;
+					}
+
+					set(prevState);
 				}, 800);
 
 				return prevState;
