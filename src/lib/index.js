@@ -9,15 +9,3 @@ export { default as TabView } from './components/TabView/index.svelte';
 export { default as NavigationBar } from './components/NavigationBar.svelte';
 
 export { navigation } from './store';
-import { get } from 'svelte/store';
-
-if (typeof window !== 'undefined' && navigation) {
-	let n = get(navigation);
-	console.log('eo');
-	window.history.pushState({}, null, n.url);
-	window.addEventListener('popstate', (event) => {
-		event.preventDefault();
-		navigation.back();
-		console.log('kittititii');
-	});
-}
