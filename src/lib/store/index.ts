@@ -189,7 +189,7 @@ const createNavigateStore = () => {
 				for (const [key, value] of url.searchParams) {
 					url.searchParams.set(key, value);
 				}
-				window.history.replaceState({}, '', url.toString());
+				window.history.pushState({}, '', url.toString());
 
 				prevState.url = url.toString();
 
@@ -266,7 +266,7 @@ const createNavigateStore = () => {
 								for (const [key, value] of urlObject.searchParams) {
 									urlObject.searchParams.set(key, value);
 								}
-								window.history.replaceState({}, '', urlObject.toString());
+								window.history.pushState({}, '', urlObject.toString());
 
 								wantedNavScreen.opened = true;
 								wantedNavScreen.animate = true;
@@ -286,7 +286,7 @@ const createNavigateStore = () => {
 								for (const [key, value] of urlObject.searchParams) {
 									urlObject.searchParams.set(key, value);
 								}
-								window.history.replaceState({}, '', urlObject.toString());
+								window.history.pushState({}, '', urlObject.toString());
 
 								prevState.url = urlObject.toString();
 
@@ -296,7 +296,6 @@ const createNavigateStore = () => {
 
 								const history = lodash.get(prevState.navigation, wantedBasePath.history);
 
-								// Keep only the last screen and the new screen in history
 								const newHistory = [history[history.length - 1], wantedScreenIndex];
 								lodash.set(prevState.navigation, wantedBasePath.history, newHistory);
 
