@@ -9,13 +9,3 @@ export { default as TabView } from './components/TabView/index.svelte';
 export { default as NavigationBar } from './components/NavigationBar.svelte';
 
 export { navigation } from './store';
-
-const popStateHandler = () => {
-	navigation?.back();
-};
-
-export { popStateHandler };
-
-if (typeof window !== 'undefined') {
-	window.onpopstate = popStateHandler;
-}

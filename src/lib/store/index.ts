@@ -32,7 +32,7 @@ const createNavigateStore = () => {
 		});
 	};
 
-	const back = (isDefaultBack = false) =>
+	const back = async (isDefaultBack = false) =>
 		update((prevState) => {
 			if (prevState.navigating) {
 				return prevState;
@@ -58,21 +58,24 @@ const createNavigateStore = () => {
 
 				let backFullPath;
 
-				const queryString = window.location.search;
-				const params = new URLSearchParams(queryString);
-				const persistentParams = parentNavigator.screens[lastHistoryScreen].persistentParams;
+				const currentUrl = new URL(window.location.href);
 
-				for (const key of [...params.keys()]) {
+				const persistentParams = parentNavigator.screens[lastHistoryScreen].persistentParams;
+				console.log('persistentParams ', currentUrl, persistentParams);
+
+				for (const [key, value] of currentUrl.searchParams) {
 					if (!persistentParams.includes(key)) {
-						params.delete(key);
+						currentUrl.searchParams.delete(key, value);
 					}
 				}
+
+				let params = currentUrl.searchParams.toString();
+				console.log('PA ', params);
 
 				if (!isDefaultBack && navHistory && navHistory.length > 1) {
 					const beforeLastHistoryScreen = navHistory[navHistory.length - 2];
 
-					backFullPath =
-						parentNavigator.screens[beforeLastHistoryScreen].fullPath + '?' + params.toString();
+					backFullPath = parentNavigator.screens[beforeLastHistoryScreen].fullPath + '?' + params;
 					parentNavigator.screens[beforeLastHistoryScreen].opened = true;
 					parentNavigator.screens[beforeLastHistoryScreen].animate = false;
 				} else {
@@ -87,8 +90,7 @@ const createNavigateStore = () => {
 
 					parentNavigator.history = [backScreen.index, lastHistoryScreen];
 
-					backFullPath =
-						parentNavigator.screens[lastHistoryScreen].backDefault + '?' + params.toString();
+					backFullPath = parentNavigator.screens[lastHistoryScreen].backDefault + '?' + params;
 				}
 
 				const urlObject = new URL(`${window.location.origin}${backFullPath}`);
@@ -236,6 +238,7 @@ const createNavigateStore = () => {
 				const wantedNavigationPath = prevState.navigationPath[path];
 
 				const urlObject = new URL(`${window.location.origin}${url}`);
+				console.log('url ', urlObject);
 
 				wantedNavigationPath.forEach((wantedPathItem, index) => {
 					if (navigationPath[index]) {
