@@ -13,6 +13,7 @@ const createNavigateStore = () => {
 	const { subscribe, update } = writable<Navigate>({
 		loaded: false,
 		navigating: false,
+		url: '',
 		navigationPath: {},
 		navigation: {
 			screens: [],
@@ -97,6 +98,7 @@ const createNavigateStore = () => {
 				}
 
 				window.history.replaceState({}, '', urlObject.toString());
+				prevState.url = urlObject.toString();
 			}
 
 			setTimeout(() => {
@@ -188,6 +190,8 @@ const createNavigateStore = () => {
 					url.searchParams.set(key, value);
 				}
 				window.history.replaceState({}, '', url.toString());
+
+				prevState.url = url.toString();
 
 				if (navigationType === 'Stack') {
 					if (!navScreens?.navigation?.history.length) {
@@ -284,6 +288,8 @@ const createNavigateStore = () => {
 								}
 								window.history.replaceState({}, '', urlObject.toString());
 
+								prevState.url = urlObject.toString();
+
 								wantedNavScreen.opened = true;
 								wantedNavScreen.animate = true;
 								wantedNavScreen.fullPath = url;
@@ -327,6 +333,8 @@ const createNavigateStore = () => {
 
 											currentScreen = currentScreen.navigation.screens[lastHistoryIndex];
 											window.history.replaceState({}, '', currentScreen.fullPath);
+
+											prevState.url = currentScreen.fullPath;
 										}
 									}
 								}
@@ -334,6 +342,7 @@ const createNavigateStore = () => {
 						}
 					}
 				});
+
 				setTimeout(() => {
 					prevState.navigating = false;
 					return prevState;
