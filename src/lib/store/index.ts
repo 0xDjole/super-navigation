@@ -243,7 +243,6 @@ const createNavigateStore = () => {
 				const wantedNavigationPath = prevState.navigationPath[path];
 
 				const urlObject = new URL(`${window.location.origin}${url}`);
-				console.log('url ', urlObject);
 
 				let navType = 'Stack';
 
