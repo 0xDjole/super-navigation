@@ -245,6 +245,8 @@ const createNavigateStore = () => {
 				const urlObject = new URL(`${window.location.origin}${url}`);
 				console.log('url ', urlObject);
 
+				let navType = 'Stack';
+
 				wantedNavigationPath.forEach((wantedPathItem, index) => {
 					if (navigationPath[index]) {
 						if (wantedPathItem.index !== navigationPath[index].index) {
@@ -262,7 +264,7 @@ const createNavigateStore = () => {
 								}
 							}
 
-							const navType =
+							navType =
 								wantedNavScreen.navigationPath[wantedNavScreen.navigationPath.length - 1]
 									.navigationType;
 
