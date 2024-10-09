@@ -286,41 +286,6 @@ const createNavigateStore = () => {
 								}
 							}
 
-							if (navType === 'Drawer') {
-								for (const [key, value] of urlObject.searchParams) {
-									urlObject.searchParams.set(key, value);
-								}
-								window.history.replaceState({}, '', urlObject.toString());
-
-								prevState.url = urlObject.toString();
-
-								wantedNavScreen.opened = true;
-								wantedNavScreen.animate = true;
-								wantedNavScreen.fullPath = url;
-
-								const history = lodash.get(prevState.navigation, wantedBasePath.history);
-
-								const newHistory = [history[history.length - 1], wantedScreenIndex];
-								lodash.set(prevState.navigation, wantedBasePath.history, newHistory);
-
-								setTimeout(() => {
-									update((prevState) => {
-										const currentScreenPath = wantedBasePath + `screens[${history[0]}]`;
-										const openedPath = currentScreenPath + '.opened';
-										const animatePath = currentScreenPath + '.animate';
-
-										const updatedHistory = lodash.get(prevState.navigation, wantedBasePath.history);
-
-										lodash.set(prevState.navigation, wantedBasePath.history, [updatedHistory[1]]);
-										lodash.set(prevState.navigation, openedPath, false);
-										lodash.set(prevState.navigation, animatePath, false);
-
-										prevState.navigating = false;
-										return prevState;
-									});
-								}, 800);
-							}
-
 							if (navType === 'Tab') {
 								for (let i = 0; i < navScreens.length; i++) {
 									navScreens[i].opened = i === wantedScreenIndex;
@@ -349,11 +314,13 @@ const createNavigateStore = () => {
 				setTimeout(() => {
 					prevState.navigating = false;
 
-					const screensPath = currentBasePath.screens;
-					const screensNav = lodash.get(prevState.navigation, screensPath);
+					if (navType === 'Tab') {
+						const screensPath = currentBasePath.screens;
+						const screensNav = lodash.get(prevState.navigation, screensPath);
 
-					if (screensNav && screensNav[currentScreenIndex]) {
-						screensNav[currentScreenIndex].opened = false;
+						if (screensNav && screensNav[currentScreenIndex]) {
+							screensNav[currentScreenIndex].opened = false;
+						}
 					}
 
 					set(prevState);
