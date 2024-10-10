@@ -315,7 +315,7 @@ const createNavigateStore = () => {
 				setTimeout(() => {
 					prevState.navigating = false;
 
-					if (navType === 'Tab') {
+					if (navType === 'Stack') {
 						const screensPath = currentBasePath.screens;
 						const screensNav = lodash.get(prevState.navigation, screensPath);
 
