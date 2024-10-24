@@ -5,25 +5,27 @@
 	import TabView from '../TabView/index.svelte';
 	import lodash from 'lodash';
 
-	export let screens;
-	export let navigationPath = [];
-	export let defaultIndex;
-	export let tabClass;
-	export let tabConfig = {
-		defaultTab: '/',
-		navbar: {
-			background: {
-				color: 'linear-gradient(145deg, ${theme(#1a1a1a)} 0%, #000000 100%)',
-				colorActive: '#212121'
-			},
-			borderTop: { color: '#8b98a5', colorActive: 'orange', width: 1 },
-			text: {
-				color: '#5e5e5e',
-				colorActive: 'white',
-				fontFamily: `'Lato', sans-serif`
+	let {
+		screens,
+		navigationPath = [],
+		defaultIndex,
+		tabClass,
+		tabConfig = {
+			defaultTab: '/',
+			navbar: {
+				background: {
+					color: 'linear-gradient(145deg, ${theme(#1a1a1a)} 0%, #000000 100%)',
+					colorActive: '#212121'
+				},
+				borderTop: { color: '#8b98a5', colorActive: 'orange', width: 1 },
+				text: {
+					color: '#5e5e5e',
+					colorActive: 'white',
+					fontFamily: `'Lato', sans-serif`
+				}
 			}
 		}
-	};
+	} = $props();
 
 	const parse = (navigation, navigationPath) => {
 		if (navigation && navigation.navigation) {
@@ -52,7 +54,7 @@
 		window.addEventListener('resize', setVhProperty);
 	});
 
-	$: navigationScreens = parse($navigation, navigationPath);
+	let navigationScreens = $derived(parse(globalThis.$navigation, navigationPath));
 
 	let navbar = tabConfig.navbar;
 
@@ -60,10 +62,11 @@
 		navigation.navigate(path);
 	};
 
-	$: activeTabIndex =
+	let activeTabIndex = $derived(
 		navigationScreens && navigationScreens.length
 			? navigationScreens.findIndex((navigationScreen) => navigationScreen.opened)
-			: 0;
+			: 0
+	);
 </script>
 
 {#if navigationScreens && navigationScreens.length}

@@ -1,17 +1,30 @@
 <script lang="ts">
-	export let sticky = true;
-	export let headerClass;
+	interface Props {
+		sticky?: boolean;
+		headerClass: any;
+		left?: import('svelte').Snippet<[any]>;
+		middle?: import('svelte').Snippet<[any]>;
+		right?: import('svelte').Snippet<[any]>;
+	}
+
+	let {
+		sticky = true,
+		headerClass,
+		left,
+		middle,
+		right
+	}: Props = $props();
 </script>
 
 <div class:header-sticky={sticky} class={`header ${headerClass}`}>
 	<div class="header-item">
-		<slot class="header-item left" name="left" />
+		{@render left?.({ class: "header-item left", })}
 	</div>
 	<div class="header-item">
-		<slot class="header-item middle" name="middle" />
+		{@render middle?.({ class: "header-item middle", })}
 	</div>
 	<div class="header-item">
-		<slot class="header-item right" name="right" />
+		{@render right?.({ class: "header-item right", })}
 	</div>
 </div>
 

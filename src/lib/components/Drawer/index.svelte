@@ -1,69 +1,95 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { onMount } from 'svelte';
 
-	export let open = false;
-	export let animate = true;
-	export let duration = 0.8;
-	export let placement = 'right';
-	export let size = null;
-	export let zIndex = -1;
-	export let height = null;
-	export let width = null;
-	export let left = null;
+	interface Props {
+		open?: boolean;
+		animate?: boolean;
+		duration?: number;
+		placement?: string;
+		size?: any;
+		zIndex?: any;
+		height?: any;
+		width?: any;
+		left?: any;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		open = false,
+		animate = true,
+		duration = $bindable(0.8),
+		placement = 'right',
+		size = null,
+		zIndex = -1,
+		height = null,
+		width = null,
+		left = null,
+		children
+	}: Props = $props();
 
 	let mounted = false;
 
-	let h = '100%';
+	let h = $state('100%');
 
-	let w = '100%';
+	let w = $state('100%');
 
-	let l = '0';
+	let l = $state('0');
 
-	let percentageX = 0;
+	let percentageX = $state(0);
 
-	$: if (left) {
-		l = left;
-	}
+	run(() => {
+		if (left) {
+			l = left;
+		}
+	});
 
-	$: if (height) {
-		h = height;
-	}
+	run(() => {
+		if (height) {
+			h = height;
+		}
+	});
 
-	$: if (width) {
-		w = width;
-	}
+	run(() => {
+		if (width) {
+			w = width;
+		}
+	});
 
-	$: transform =
-		placement === 'right'
+	let transform =
+		$derived(placement === 'right'
 			? `transform: translate(${percentageX}%, 0);`
-			: `transform: translate(0, ${percentageX}%);`;
+			: `transform: translate(0, ${percentageX}%);`);
 
-	$: style = `--duration: ${duration}s; --size: ${size}; z-index: ${zIndex}; ${transform}; height: ${h}; width: ${w}; left: ${l}px`;
+	let style = $derived(`--duration: ${duration}s; --size: ${size}; z-index: ${zIndex}; ${transform}; height: ${h}; width: ${w}; left: ${l}px`);
 
-	$: if (open) {
-		if (animate) {
-			duration = 0.8;
-			percentageX = 100;
-
-			setTimeout(() => {
-				percentageX = 0;
-			}, 20);
-		} else {
-			duration = 0;
-			percentageX = 0;
-		}
-	} else {
-		if (animate) {
-			duration = 0.8;
-			percentageX = 0;
-			setTimeout(() => {
+	run(() => {
+		if (open) {
+			if (animate) {
+				duration = 0.8;
 				percentageX = 100;
-			}, 20);
+
+				setTimeout(() => {
+					percentageX = 0;
+				}, 20);
+			} else {
+				duration = 0;
+				percentageX = 0;
+			}
 		} else {
-			duration = 0;
-			percentageX = 100;
+			if (animate) {
+				duration = 0.8;
+				percentageX = 0;
+				setTimeout(() => {
+					percentageX = 100;
+				}, 20);
+			} else {
+				duration = 0;
+				percentageX = 100;
+			}
 		}
-	}
+	});
 
 	function scrollLock(open) {
 		if (mounted) {
@@ -72,7 +98,9 @@
 		}
 	}
 
-	$: scrollLock(open);
+	run(() => {
+		scrollLock(open);
+	});
 
 	onMount(() => {
 		mounted = true;
@@ -82,7 +110,7 @@
 
 <div class="drawer" {style}>
 	<div class="panel {placement}">
-		<slot />
+		{@render children?.()}
 	</div>
 </div>
 

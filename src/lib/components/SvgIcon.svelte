@@ -1,14 +1,29 @@
 <script lang="ts">
-	export let data = '';
-	export let viewBox = extractViewBox(data);
 
-	export let size = '25px';
-	export let width = size;
-	export let height = size;
-	export let color = '';
-	export let stroke = '';
-	export let fill = color;
-	$: elements = data.replace(/<svg ([^>]*)>/, '').replace('</svg>', '');
+	interface Props {
+		data?: string;
+		viewBox?: any;
+		size?: string;
+		width?: any;
+		height?: any;
+		color?: string;
+		stroke?: string;
+		fill?: any;
+		[key: string]: any
+	}
+
+	let {
+		data = '',
+		viewBox = extractViewBox(data),
+		size = '25px',
+		width = size,
+		height = size,
+		color = '',
+		stroke = '',
+		fill = color,
+		...rest
+	}: Props = $props();
+	let elements = $derived(data.replace(/<svg ([^>]*)>/, '').replace('</svg>', ''));
 	function extractViewBox(svg) {
 		const regex = /viewBox="([\d\- \.]+)"/;
 		const res = regex.exec(svg);
@@ -17,6 +32,6 @@
 	}
 </script>
 
-<svg xmlns="http://www.w3.org/2000/svg" {width} {height} {viewBox} {stroke} {fill} {...$$restProps}>
+<svg xmlns="http://www.w3.org/2000/svg" {width} {height} {viewBox} {stroke} {fill} {...rest}>
 	{@html elements}
 </svg>

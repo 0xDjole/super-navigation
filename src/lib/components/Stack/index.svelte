@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { onMount } from 'svelte';
 	import { navigation } from '../../store';
 	import lodash from 'lodash';
@@ -7,12 +9,23 @@
 	import Screen from '../Screen/index.svelte';
 	import LazyComponent from '../LazyComponent.svelte'; // Import LazyComponent
 
-	export let screens;
-	export let navigationPath = [];
-	export let background = 'bg-primary';
 
-	let navigationScreens = [];
-	export let defaultIndex;
+	let navigationScreens = $state([]);
+	interface Props {
+		screens: any;
+		navigationPath?: any;
+		background?: string;
+		defaultIndex: any;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		screens,
+		navigationPath = [],
+		background = 'bg-primary',
+		defaultIndex,
+		children
+	}: Props = $props();
 
 	const parse = (navigation, navigationPath) => {
 		if (navigation && navigation.navigation) {
@@ -50,25 +63,27 @@
 		return [];
 	};
 
-	$: navigationScreens = parse($navigation, navigationPath);
+	run(() => {
+		navigationScreens = parse(globalThis.$navigation, navigationPath);
+	});
 
 	onMount(() => {
 		navigation.init(screens, 'Stack', window.location, navigationPath, defaultIndex);
 	});
 </script>
 
-{#if !$navigation?.loaded}
-	<slot />
+{#if !globalThis.$navigation?.loaded}
+	{@render children?.()}
 {/if}
 
 <div
-	class:not-display={!$navigation?.loaded}
-	class:display={$navigation?.loaded}
+	class:not-display={!globalThis.$navigation?.loaded}
+	class:display={globalThis.$navigation?.loaded}
 	class="stack-wrapper"
 >
 	{#if navigationScreens && navigationScreens.length}
 		{#each navigationScreens as screen, index (screen.key)}
-			{#if screen.opened || $navigation.navigating}
+			{#if screen.opened || globalThis.$navigation.navigating}
 				<Drawer animate={screen.animate} zIndex={index * 10} open={screen.opened}>
 					<div class={`stack-item ${background}`}>
 						<Screen
@@ -78,7 +93,9 @@
 							title={screen.title}
 							showHeader={screen.showHeader === false ? false : true}
 						>
-							<svelte:component this={screen.backComponent} slot="back" />
+							{#snippet back()}
+														<screen.backComponent  />
+													{/snippet}
 
 							<LazyComponent
 								component={screen.component}

@@ -1,30 +1,32 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { navigation } from '../../store';
 	import LazyComponent from '../LazyComponent.svelte';
 
-	export let navigationPath;
-	export let navigationScreens;
-	export let activeTabIndex;
+	let { navigationPath, navigationScreens, activeTabIndex } = $props();
 
-	let tabView;
-	let tabWidth;
+	let tabView = $state();
+	let tabWidth = $state();
 
 	const onLoad = (index) => {
 		tabView.style.scrollBehavior = 'auto';
 		tabView.scrollTo({ left: tabWidth * activeTabIndex });
 	};
 
-	$: if ($navigation?.loaded && activeTabIndex !== null) {
-		tabView.style.scrollBehavior = 'smooth';
-		tabView.scrollTo({ left: tabWidth * activeTabIndex });
-	}
+	run(() => {
+		if (globalThis.$navigation?.loaded && activeTabIndex !== null) {
+			tabView.style.scrollBehavior = 'smooth';
+			tabView.scrollTo({ left: tabWidth * activeTabIndex });
+		}
+	});
 </script>
 
 {#if navigationScreens && navigationScreens.length}
 	<div bind:clientWidth={tabWidth} bind:this={tabView} class="tab-view">
 		{#each navigationScreens as navigationScreen, index}
 			<div class="tab-item">
-				{#if index === activeTabIndex || $navigation?.loaded}
+				{#if index === activeTabIndex || globalThis.$navigation?.loaded}
 					<LazyComponent
 						onLoad={() => onLoad(index)}
 						component={navigationScreen.component}
