@@ -13,11 +13,10 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
+			"svelte": "./src/lib/index.ts"
 		}
 	},
 	"devDependencies": {
-		"@sveltejs/kit": "^2.5.0",
 		"@sveltejs/package": "2.2.6",
 		"@types/lodash": "^4.14.197",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
