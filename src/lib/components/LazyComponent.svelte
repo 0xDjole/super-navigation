@@ -2,12 +2,21 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let component = null;
-	export let loader = null;
-	export let props = {};
-	export let onLoad = () => {};
+	interface Props {
+		component?: any;
+		loader?: any;
+		props?: any;
+		onLoad?: any;
+	}
 
-	let dynamicComponent = component;
+	let {
+		component = null,
+		loader = null,
+		props = {},
+		onLoad = () => {}
+	}: Props = $props();
+
+	let dynamicComponent = $state(component);
 
 	onMount(async () => {
 		if (!dynamicComponent && loader) {
@@ -20,5 +29,6 @@
 </script>
 
 {#if dynamicComponent}
-	<svelte:component this={dynamicComponent} {...props} />
+	{@const SvelteComponent = dynamicComponent}
+	<SvelteComponent {...props} />
 {/if}

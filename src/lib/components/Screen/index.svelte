@@ -3,49 +3,69 @@
 
 	import Header from '../Header/index.svelte';
 
-	export let title;
-	export let showBack;
-	export let navigationPath;
-	export let showHeader = true;
-	export let headerClass;
+	interface Props {
+		title: any;
+		showBack: any;
+		navigationPath: any;
+		showHeader?: boolean;
+		headerClass: any;
+		back?: import('svelte').Snippet;
+		children?: import('svelte').Snippet;
+	}
 
-	$: hasTab =
-		navigationPath && navigationPath.length
+	let {
+		title,
+		showBack,
+		navigationPath,
+		showHeader = true,
+		headerClass,
+		back,
+		children
+	}: Props = $props();
+
+	let hasTab =
+		$derived(navigationPath && navigationPath.length
 			? navigationPath.some((path) => path.navigationType === 'Tab')
-			: false;
+			: false);
 </script>
 
 {#if showHeader}
 	<Header {headerClass}>
-		<div slot="left">
-			{#if showBack}
-				<div
-					class="back"
-					on:click={async () => {
+		{#snippet left()}
+				<div >
+				{#if showBack}
+					<div
+						class="back"
+						onclick={async () => {
 						navigation.back();
 					}}
-				>
-					<slot name="back" />
-				</div>
-			{/if}
-		</div>
-		<div slot="middle">
-			<span class="title">
-				{title}
-			</span>
-		</div>
-		<div slot="right" />
+					>
+						{@render back?.()}
+					</div>
+				{/if}
+			</div>
+			{/snippet}
+		{#snippet middle()}
+				<div >
+				<span class="title">
+					{title}
+				</span>
+			</div>
+			{/snippet}
+		{#snippet right()}
+				<div >
+			{/snippet}</div>
 	</Header>
 {/if}
 
 {#if hasTab}
 	<div class="wrap">
 		<div class="wrap-scroll">
-			<slot />
+			{@render children?.()}
 		</div>
 	</div>
 {:else}
-	<slot />
+	{@render children?.()}
 {/if}
 
 <style type="text/postcss">

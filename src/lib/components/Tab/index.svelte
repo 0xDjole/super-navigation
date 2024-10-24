@@ -5,11 +5,12 @@
 	import TabView from '../TabView/index.svelte';
 	import lodash from 'lodash';
 
-	export let screens;
-	export let navigationPath = [];
-	export let defaultIndex;
-	export let tabClass;
-	export let tabConfig = {
+	let {
+		screens,
+		navigationPath = [],
+		defaultIndex,
+		tabClass,
+		tabConfig = {
 		defaultTab: '/',
 		navbar: {
 			background: {
@@ -23,7 +24,8 @@
 				fontFamily: `'Lato', sans-serif`
 			}
 		}
-	};
+	}
+	} = $props();
 
 	const parse = (navigation, navigationPath) => {
 		if (navigation && navigation.navigation) {
@@ -52,7 +54,7 @@
 		window.addEventListener('resize', setVhProperty);
 	});
 
-	$: navigationScreens = parse($navigation, navigationPath);
+	let navigationScreens = $derived(parse($navigation, navigationPath));
 
 	let navbar = tabConfig.navbar;
 
@@ -60,10 +62,10 @@
 		navigation.navigate(path);
 	};
 
-	$: activeTabIndex =
-		navigationScreens && navigationScreens.length
+	let activeTabIndex =
+		$derived(navigationScreens && navigationScreens.length
 			? navigationScreens.findIndex((navigationScreen) => navigationScreen.opened)
-			: 0;
+			: 0);
 </script>
 
 {#if navigationScreens && navigationScreens.length}

@@ -1,9 +1,11 @@
 <script>
 	import NavigationBarTab from './NavigationBarTab.svelte';
-	export let tabs = [];
-	export let navbar;
-	export let handleClick;
-	export let activeTabIndex;
+	let {
+		tabs = [],
+		navbar,
+		handleClick,
+		activeTabIndex
+	} = $props();
 	let columns = tabs.reduce((aggr) => aggr.concat('1fr '), '');
 </script>
 

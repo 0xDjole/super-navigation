@@ -1,17 +1,32 @@
 <script>
-	export let sticky = true;
-	export let headerClass;
+	/**
+	 * @typedef {Object} Props
+	 * @property {boolean} [sticky]
+	 * @property {any} headerClass
+	 * @property {import('svelte').Snippet<[any]>} [left]
+	 * @property {import('svelte').Snippet<[any]>} [middle]
+	 * @property {import('svelte').Snippet<[any]>} [right]
+	 */
+
+	/** @type {Props} */
+	let {
+		sticky = true,
+		headerClass,
+		left,
+		middle,
+		right
+	} = $props();
 </script>
 
 <div class:header-sticky={sticky} class={`header ${headerClass}`}>
 	<div class="header-item">
-		<slot class="header-item left" name="left" />
+		{@render left?.({ class: "header-item left", })}
 	</div>
 	<div class="header-item">
-		<slot class="header-item middle" name="middle" />
+		{@render middle?.({ class: "header-item middle", })}
 	</div>
 	<div class="header-item">
-		<slot class="header-item right" name="right" />
+		{@render right?.({ class: "header-item right", })}
 	</div>
 </div>
 

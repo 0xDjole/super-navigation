@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { onMount } from 'svelte';
 	import { navigation } from '../../store';
 	import lodash from 'lodash';
@@ -7,12 +9,23 @@
 	import Screen from '../Screen/index.svelte';
 	import LazyComponent from '../LazyComponent.svelte'; // Import LazyComponent
 
-	export let screens;
-	export let navigationPath = [];
-	export let background = 'bg-primary';
 
-	let navigationScreens = [];
-	export let defaultIndex;
+	let navigationScreens = $state([]);
+	interface Props {
+		screens: any;
+		navigationPath?: any;
+		background?: string;
+		defaultIndex: any;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		screens,
+		navigationPath = [],
+		background = 'bg-primary',
+		defaultIndex,
+		children
+	}: Props = $props();
 
 	const parse = (navigation, navigationPath) => {
 		if (navigation && navigation.navigation) {
@@ -50,7 +63,9 @@
 		return [];
 	};
 
-	$: navigationScreens = parse($navigation, navigationPath);
+	run(() => {
+		navigationScreens = parse($navigation, navigationPath);
+	});
 
 	onMount(() => {
 		navigation.init(screens, 'Stack', window.location, navigationPath, defaultIndex);
@@ -58,7 +73,7 @@
 </script>
 
 {#if !$navigation?.loaded}
-	<slot />
+	{@render children?.()}
 {/if}
 
 <div
@@ -78,7 +93,9 @@
 							title={screen.title}
 							showHeader={screen.showHeader === false ? false : true}
 						>
-							<svelte:component this={screen.backComponent} slot="back" />
+							{#snippet back()}
+														<screen.backComponent  />
+													{/snippet}
 
 							<LazyComponent
 								component={screen.component}
