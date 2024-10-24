@@ -1,6 +1,6 @@
 {
 	"name": "super-navigation",
-	"version": "0.0.58",
+	"version": "0.0.56",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "svelte-package",
@@ -19,8 +19,8 @@
 	"devDependencies": {
 		"@sveltejs/package": "2.2.6",
 		"@types/lodash": "^4.14.197",
-		"@typescript-eslint/eslint-plugin": "^5.45.0",
-		"@typescript-eslint/parser": "^5.45.0",
+		"@typescript-eslint/eslint-plugin": "^6.20.0",
+		"@typescript-eslint/parser": "^6.20.0",
 		"autoprefixer": "^10.4.13",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
@@ -37,5 +37,11 @@
 		"tslib": "^2.4.1",
 		"typescript": "^5.3.3",
 		"vite": "^5.0.12"
+	},
+	"peerDependencies": {
+		"tailwindcss": "^3.2.4"
+	},
+	"dependencies": {
+		"svelte": "^4.2.9"
 	}
 }
