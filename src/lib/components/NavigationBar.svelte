@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import NavigationBarTab from './NavigationBarTab.svelte';
 	export let tabs = [];
 	export let navbar;

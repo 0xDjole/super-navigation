@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	export let sticky = true;
 	export let headerClass;
 </script>

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import SvgIcon from './SvgIcon.svelte';
 	export let tab = {};
 	export let tabLength = 0;
