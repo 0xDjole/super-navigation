@@ -9,7 +9,6 @@
 	import Screen from '../Screen/index.svelte';
 	import LazyComponent from '../LazyComponent.svelte'; // Import LazyComponent
 
-
 	let navigationScreens = $state([]);
 	interface Props {
 		screens: any;
@@ -64,7 +63,7 @@
 	};
 
 	run(() => {
-		navigationScreens = parse(globalThis.$navigation, navigationPath);
+		navigationScreens = parse($navigation, navigationPath);
 	});
 
 	onMount(() => {
@@ -72,18 +71,18 @@
 	});
 </script>
 
-{#if !globalThis.$navigation?.loaded}
+{#if !$navigation?.loaded}
 	{@render children?.()}
 {/if}
 
 <div
-	class:not-display={!globalThis.$navigation?.loaded}
-	class:display={globalThis.$navigation?.loaded}
+	class:not-display={!$navigation?.loaded}
+	class:display={$navigation?.loaded}
 	class="stack-wrapper"
 >
 	{#if navigationScreens && navigationScreens.length}
 		{#each navigationScreens as screen, index (screen.key)}
-			{#if screen.opened || globalThis.$navigation.navigating}
+			{#if screen.opened || $navigation.navigating}
 				<Drawer animate={screen.animate} zIndex={index * 10} open={screen.opened}>
 					<div class={`stack-item ${background}`}>
 						<Screen
@@ -94,8 +93,8 @@
 							showHeader={screen.showHeader === false ? false : true}
 						>
 							{#snippet back()}
-														<screen.backComponent  />
-													{/snippet}
+								<screen.backComponent />
+							{/snippet}
 
 							<LazyComponent
 								component={screen.component}

@@ -15,7 +15,7 @@
 	};
 
 	run(() => {
-		if (globalThis.$navigation?.loaded && activeTabIndex !== null) {
+		if ($navigation?.loaded && activeTabIndex !== null) {
 			tabView.style.scrollBehavior = 'smooth';
 			tabView.scrollTo({ left: tabWidth * activeTabIndex });
 		}
@@ -26,7 +26,7 @@
 	<div bind:clientWidth={tabWidth} bind:this={tabView} class="tab-view">
 		{#each navigationScreens as navigationScreen, index}
 			<div class="tab-item">
-				{#if index === activeTabIndex || globalThis.$navigation?.loaded}
+				{#if index === activeTabIndex || $navigation?.loaded}
 					<LazyComponent
 						onLoad={() => onLoad(index)}
 						component={navigationScreen.component}

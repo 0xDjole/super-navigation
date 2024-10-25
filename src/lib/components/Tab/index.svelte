@@ -54,7 +54,7 @@
 		window.addEventListener('resize', setVhProperty);
 	});
 
-	let navigationScreens = $derived(parse(globalThis.$navigation, navigationPath));
+	let navigationScreens = $derived(parse($navigation, navigationPath));
 
 	let navbar = tabConfig.navbar;
 
