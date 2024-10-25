@@ -1,6 +1,6 @@
 {
 	"name": "super-navigation",
-	"version": "0.0.64",
+	"version": "0.0.65",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "svelte-package",
