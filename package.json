@@ -1,6 +1,6 @@
 {
 	"name": "super-navigation",
-	"version": "0.0.66",
+	"version": "0.0.65",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "svelte-package",
@@ -15,7 +15,7 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"svelte": "./src/lib/index.ts"
+			"svelte": "./dist/index.js"
 		}
 	},
 	"peerDependencies": {
