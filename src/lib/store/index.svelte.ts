@@ -292,14 +292,6 @@ const createNavigateStore = () => {
 
 			setTimeout(() => {
 				state.navigating = false;
-				if (navType === 'Stack') {
-					const screensPath = currentBasePath.screens;
-					const screensNav = lodash.get(state.navigation, screensPath);
-
-					if (screensNav && screensNav[currentScreenIndex]) {
-						screensNav[currentScreenIndex].opened = false;
-					}
-				}
 			}, 1000);
 		}
 	});
