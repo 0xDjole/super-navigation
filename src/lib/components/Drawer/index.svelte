@@ -70,10 +70,9 @@
 			if (animate) {
 				duration = 0.8;
 				percentageX = 100;
-
 				setTimeout(() => {
 					percentageX = 0;
-				}, 20);
+				}, 1);
 			} else {
 				duration = 0;
 				percentageX = 0;
@@ -81,10 +80,7 @@
 		} else {
 			if (animate) {
 				duration = 0.8;
-				percentageX = 0;
-				setTimeout(() => {
-					percentageX = 100;
-				}, 20);
+				percentageX = 100;
 			} else {
 				duration = 0;
 				percentageX = 100;

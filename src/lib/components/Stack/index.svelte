@@ -1,13 +1,11 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { onMount } from 'svelte';
 	import { navigation } from '../../store/index.svelte';
 	import lodash from 'lodash';
 
 	import Drawer from '../Drawer/index.svelte';
 	import Screen from '../Screen/index.svelte';
-	import LazyComponent from '../LazyComponent.svelte'; // Import LazyComponent
+	import LazyComponent from '../LazyComponent.svelte';
 
 	interface Props {
 		screens: any;
@@ -47,9 +45,9 @@
 					activeScreens.push({
 						...screensNav[historyIndex],
 						showHeader: screens[historyIndex]?.showHeader,
-						headerClass: screens[historyIndex].headerClass,
+						headerClass: screens[historyIndex]?.headerClass,
 						showBack: historyIndex > 0,
-						key: JSON.stringify(screensNav[historyIndex]?.navigationPath)
+						key: screensNav[historyIndex]?.id ?? screensNav[historyIndex]?.index ?? historyIndex
 					});
 				}
 
@@ -60,6 +58,7 @@
 		return [];
 	};
 
+	// Use a reactive statement to update navigationScreens
 	let navigationScreens = $derived(parse(navigation, navigationPath));
 
 	onMount(() => {

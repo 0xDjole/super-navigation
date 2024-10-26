@@ -290,17 +290,17 @@ const createNavigateStore = () => {
 				}
 			});
 
-			const screensPath = currentBasePath.screens;
-			const screensNav = lodash.get(state.navigation, screensPath);
-
 			setTimeout(() => {
 				state.navigating = false;
 				if (navType === 'Stack') {
+					const screensPath = currentBasePath.screens;
+					const screensNav = lodash.get(state.navigation, screensPath);
+
 					if (screensNav && screensNav[currentScreenIndex]) {
 						screensNav[currentScreenIndex].opened = false;
 					}
 				}
-			}, 2000);
+			}, 1000);
 		}
 	});
 
