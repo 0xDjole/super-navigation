@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { onMount } from 'svelte';
 
 	interface Props {
@@ -39,32 +37,35 @@
 
 	let percentageX = $state(0);
 
-	run(() => {
+	$effect(() => {
 		if (left) {
 			l = left;
 		}
 	});
 
-	run(() => {
+	$effect(() => {
 		if (height) {
 			h = height;
 		}
 	});
 
-	run(() => {
+	$effect(() => {
 		if (width) {
 			w = width;
 		}
 	});
 
-	let transform =
-		$derived(placement === 'right'
+	let transform = $derived(
+		placement === 'right'
 			? `transform: translate(${percentageX}%, 0);`
-			: `transform: translate(0, ${percentageX}%);`);
+			: `transform: translate(0, ${percentageX}%);`
+	);
 
-	let style = $derived(`--duration: ${duration}s; --size: ${size}; z-index: ${zIndex}; ${transform}; height: ${h}; width: ${w}; left: ${l}px`);
+	let style = $derived(
+		`--duration: ${duration}s; --size: ${size}; z-index: ${zIndex}; ${transform}; height: ${h}; width: ${w}; left: ${l}px`
+	);
 
-	run(() => {
+	$effect(() => {
 		if (open) {
 			if (animate) {
 				duration = 0.8;
@@ -98,7 +99,7 @@
 		}
 	}
 
-	run(() => {
+	$effect(() => {
 		scrollLock(open);
 	});
 

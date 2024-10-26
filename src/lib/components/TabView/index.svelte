@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { navigation } from '../../store/index.svelte';
 	import LazyComponent from '../LazyComponent.svelte';
 
@@ -10,11 +8,13 @@
 	let tabWidth = $state();
 
 	const onLoad = (index) => {
-		tabView.style.scrollBehavior = 'auto';
-		tabView.scrollTo({ left: tabWidth * activeTabIndex });
+		setTimeout(() => {
+			tabView.style.scrollBehavior = 'auto';
+			tabView.scrollTo({ left: tabWidth * activeTabIndex });
+		}, 10);
 	};
 
-	run(() => {
+	$effect(() => {
 		if (navigation?.loaded && activeTabIndex !== null) {
 			tabView.style.scrollBehavior = 'smooth';
 			tabView.scrollTo({ left: tabWidth * activeTabIndex });

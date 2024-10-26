@@ -9,7 +9,6 @@
 	import Screen from '../Screen/index.svelte';
 	import LazyComponent from '../LazyComponent.svelte'; // Import LazyComponent
 
-	let navigationScreens = $state([]);
 	interface Props {
 		screens: any;
 		navigationPath?: any;
@@ -44,14 +43,13 @@
 				const activeScreens = [];
 				for (let i = 0; i < history.length; i++) {
 					const historyIndex = history[i];
-					const numOfSame = activeScreens.filter((i) => i.index === historyIndex).length;
 
 					activeScreens.push({
 						...screensNav[historyIndex],
-						showHeader: screens[historyIndex].showHeader,
+						showHeader: screens[historyIndex]?.showHeader,
 						headerClass: screens[historyIndex].headerClass,
 						showBack: historyIndex > 0,
-						key: `${historyIndex}.${numOfSame}`
+						key: JSON.stringify(screensNav[historyIndex]?.navigationPath)
 					});
 				}
 
@@ -62,10 +60,7 @@
 		return [];
 	};
 
-	$effect(() => {
-		console.log('ajdejdojodsdsdse');
-		navigationScreens = parse(navigation, navigationPath);
-	});
+	let navigationScreens = $derived(parse(navigation, navigationPath));
 
 	onMount(() => {
 		navigation.init(screens, 'Stack', window.location, navigationPath, defaultIndex);

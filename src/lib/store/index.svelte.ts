@@ -180,7 +180,7 @@ const createNavigateStore = () => {
 					lodash.set(state.navigation, basePath.history, [activeScreenIndex]);
 				}
 
-				return state;
+				return null;
 			}
 
 			if (navigationType === 'Drawer') {
@@ -189,7 +189,7 @@ const createNavigateStore = () => {
 					lodash.set(state.navigation, basePath.history, [activeScreenIndex]);
 				}
 
-				return state;
+				return null;
 			}
 
 			if (navigationType === 'Tab') {
@@ -197,7 +197,7 @@ const createNavigateStore = () => {
 					lodash.set(state.navigation, basePath.screens, parsedScreens);
 				}
 
-				return state;
+				return null;
 			}
 		},
 
@@ -220,8 +220,6 @@ const createNavigateStore = () => {
 			const currentScreenIndex = navigationPath[navigationPath.length - 1].index;
 
 			const wantedNavigationPath = state.navigationPath[path];
-
-			console.log('wantedNavigationPath ', wantedNavigationPath);
 
 			const urlObject = new URL(`${window.location.origin}${url}`);
 
@@ -270,6 +268,7 @@ const createNavigateStore = () => {
 
 						if (navType === 'Tab') {
 							for (let i = 0; i < navScreens.length; i++) {
+								console.log(navScreens, wantedScreenIndex);
 								navScreens[i].opened = i === wantedScreenIndex;
 
 								if (i === wantedScreenIndex) {
@@ -291,21 +290,17 @@ const createNavigateStore = () => {
 				}
 			});
 
+			const screensPath = currentBasePath.screens;
+			const screensNav = lodash.get(state.navigation, screensPath);
+
 			setTimeout(() => {
 				state.navigating = false;
-
 				if (navType === 'Stack') {
-					const screensPath = currentBasePath.screens;
-					const screensNav = lodash.get(state.navigation, screensPath);
-
 					if (screensNav && screensNav[currentScreenIndex]) {
 						screensNav[currentScreenIndex].opened = false;
-						console.log('c ', currentScreenIndex);
-						console.log('eov', JSON.parse(JSON.stringify(screensNav)));
-						console.log('eov nav', JSON.parse(JSON.stringify(state.navigation)));
 					}
 				}
-			}, 5000);
+			}, 2000);
 		}
 	});
 

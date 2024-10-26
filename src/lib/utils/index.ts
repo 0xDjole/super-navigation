@@ -8,7 +8,7 @@ export const getScreenPath = (navigationPath: NavPath[], parentPath: boolean): N
 	if (wantedPathLength) {
 		basePath = 'screens';
 		for (let i = 0; i < wantedPathLength; i++) {
-			const navItem = navigationPath[i];
+			const navItem = JSON.parse(JSON.stringify(navigationPath[i]));
 			const navItemIndex = navItem.index;
 
 			const isLast = i === wantedPathLength - 1;
@@ -21,7 +21,6 @@ export const getScreenPath = (navigationPath: NavPath[], parentPath: boolean): N
 			basePath = basePath.concat(`[${navItemIndex}].navigation.screens`);
 		}
 	}
-
 	return {
 		base: basePath,
 		screens: basePath ? basePath.concat('navigation.screens') : 'screens',
