@@ -2,7 +2,7 @@
 	import { run } from 'svelte/legacy';
 
 	import { onMount } from 'svelte';
-	import { navigation } from '../../store';
+	import { navigation } from '../../store/index.svelte';
 	import lodash from 'lodash';
 
 	import Drawer from '../Drawer/index.svelte';
@@ -62,8 +62,9 @@
 		return [];
 	};
 
-	run(() => {
-		navigationScreens = parse($navigation, navigationPath);
+	$effect(() => {
+		console.log('ajdejdojodsdsdse');
+		navigationScreens = parse(navigation, navigationPath);
 	});
 
 	onMount(() => {
@@ -71,18 +72,18 @@
 	});
 </script>
 
-{#if !$navigation?.loaded}
+{#if !navigation?.loaded}
 	{@render children?.()}
 {/if}
 
 <div
-	class:not-display={!$navigation?.loaded}
-	class:display={$navigation?.loaded}
+	class:not-display={!navigation?.loaded}
+	class:display={navigation?.loaded}
 	class="stack-wrapper"
 >
 	{#if navigationScreens && navigationScreens.length}
 		{#each navigationScreens as screen, index (screen.key)}
-			{#if screen.opened || $navigation.navigating}
+			{#if screen.opened || navigation.navigating}
 				<Drawer animate={screen.animate} zIndex={index * 10} open={screen.opened}>
 					<div class={`stack-item ${background}`}>
 						<Screen

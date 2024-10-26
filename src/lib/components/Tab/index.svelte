@@ -1,7 +1,7 @@
 <script lang="ts">
 	import NavigationBar from '../NavigationBar.svelte';
 	import { onMount } from 'svelte';
-	import { navigation } from '../../store';
+	import { navigation } from '../../store/index.svelte';
 	import TabView from '../TabView/index.svelte';
 	import lodash from 'lodash';
 
@@ -54,7 +54,7 @@
 		window.addEventListener('resize', setVhProperty);
 	});
 
-	let navigationScreens = $derived(parse($navigation, navigationPath));
+	let navigationScreens = $derived(parse(navigation, navigationPath));
 
 	let navbar = tabConfig.navbar;
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { navigation } from '../../store';
+	import { navigation } from '../../store/index.svelte';
 
 	import Header from '../Header/index.svelte';
 
@@ -23,10 +23,11 @@
 		children
 	}: Props = $props();
 
-	let hasTab =
-		$derived(navigationPath && navigationPath.length
+	let hasTab = $derived(
+		navigationPath && navigationPath.length
 			? navigationPath.some((path) => path.navigationType === 'Tab')
-			: false);
+			: false
+	);
 </script>
 
 {#if showHeader}
@@ -37,14 +38,14 @@
 					<div
 						class="back"
 						onclick={async () => {
-						navigation.back();
-					}}
+							navigation.back();
+						}}
 					>
 						{@render back?.()}
 					</div>
 				{/if}
 			</div>
-			{/snippet}
+		{/snippet}
 		{#snippet middle()}
 			<div>
 				<span class="title">
