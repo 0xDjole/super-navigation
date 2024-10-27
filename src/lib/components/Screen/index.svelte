@@ -33,18 +33,16 @@
 {#if showHeader}
 	<Header {headerClass}>
 		{#snippet left()}
-			<div>
-				{#if showBack}
-					<div
-						class="back"
-						onclick={async () => {
-							navigation.back();
-						}}
-					>
-						{@render back?.()}
-					</div>
-				{/if}
-			</div>
+			{#if showBack}
+				<div
+					class="back"
+					onclick={async () => {
+						navigation.back();
+					}}
+				>
+					{@render back?.()}
+				</div>
+			{/if}
 		{/snippet}
 		{#snippet middle()}
 			<div>
@@ -87,6 +85,6 @@
 	}
 
 	.back {
-		@apply grid justify-center items-center w-14 h-14 cursor-pointer;
+		@apply flex items-center justify-center flex-1 h-full cursor-pointer;
 	}
 </style>

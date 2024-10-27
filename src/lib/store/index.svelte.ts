@@ -268,7 +268,6 @@ const createNavigateStore = () => {
 
 						if (navType === 'Tab') {
 							for (let i = 0; i < navScreens.length; i++) {
-								console.log(navScreens, wantedScreenIndex);
 								navScreens[i].opened = i === wantedScreenIndex;
 
 								if (i === wantedScreenIndex) {
