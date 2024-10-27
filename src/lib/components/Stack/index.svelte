@@ -124,6 +124,6 @@
 	}
 
 	.stack-item {
-		@apply z-10 top-0 w-full transition-transform h-full;
+		@apply z-10 top-0 w-full transition-transform h-full flex flex-col;
 	}
 </style>
