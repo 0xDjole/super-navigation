@@ -41,13 +41,14 @@
 				const activeScreens = [];
 				for (let i = 0; i < history.length; i++) {
 					const historyIndex = history[i];
+					const numOfSame = activeScreens.filter((i) => i.index === historyIndex).length;
 
 					activeScreens.push({
 						...screensNav[historyIndex],
-						showHeader: screens[historyIndex]?.showHeader,
-						headerClass: screens[historyIndex]?.headerClass,
+						showHeader: screens[historyIndex].showHeader,
+						headerClass: screens[historyIndex].headerClass,
 						showBack: historyIndex > 0,
-						key: screensNav[historyIndex]?.id ?? screensNav[historyIndex]?.index ?? historyIndex
+						key: `${historyIndex}.${numOfSame}`
 					});
 				}
 
